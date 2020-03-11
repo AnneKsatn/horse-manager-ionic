@@ -21,26 +21,14 @@
       </ion-grid>
       <ion-title>Лошади:</ion-title>
     </div>
-    <div class="horse-name-title ion-text-end">
-      <ion-title class="horse-name">Эстетика</ion-title>
-    </div>
 
-    <div class="horse-info">
-      <div>
-        <ion-grid>
-          <ion-row class="table-row ion-align-items-center ion-text-center">
-            <ion-col size="4" class="row-title">год рожд.</ion-col>
-            <ion-col size="8">2003</ion-col>
-          </ion-row>
-
-          <ion-row class="table-row ion-align-items-center ion-text-center">
-            <ion-col size="4" class="row-title">порода</ion-col>
-            <ion-col size="8">Орловский рысак</ion-col>
-          </ion-row>
-
-          <ion-button expand="block" class="registr-btn" (click)="presentAlert()">Зарегистрировать в КСК</ion-button>
-        </ion-grid>
-      </div>
+    <div *ngFor="let horse of horses" class="horse-profile">
+      <app-horse-profile class="horse-profile-2" [horseItem]="horse"></app-horse-profile>
     </div>
   </div>
+
+  <!-- <div *ngFor="let horse of horses | async">
+    {{horse.name}}
+  </div> -->
+
 </ion-content>

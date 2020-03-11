@@ -1,0 +1,22 @@
+<div class="horse-name-title ion-text-end">
+  <ion-title class="horse-name">{{horse.name}}</ion-title>
+</div>
+
+<div class="horse-info">
+  <div>
+    <ion-grid>
+      <ion-row class="table-row ion-align-items-center ion-text-center">
+        <ion-col size="4" class="row-title">год рожд.</ion-col>
+        <ion-col size="8">2003</ion-col>
+      </ion-row>
+
+      <ion-row class="table-row ion-align-items-center ion-text-center">
+        <ion-col size="4" class="row-title">порода</ion-col>
+        <ion-col size="8">Орловский рысак</ion-col>
+      </ion-row>
+
+      <ion-button expand="block" class="registr-btn" (click)="presentAlert()" *ngIf="horse.isResident == 'false'">Зарегистрировать в КСК</ion-button>
+      <div *ngIf="horse.isResident == 'request'"> Ваша заявка на присоединение к конному клубу рассматривается</div>
+    </ion-grid>
+  </div>
+</div>

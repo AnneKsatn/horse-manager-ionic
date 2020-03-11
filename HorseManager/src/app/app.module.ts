@@ -11,12 +11,13 @@ import { AppComponent } from './app.component';
 import { environment } from './../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
+import { HorseService } from './shared/services/horse.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-  BrowserModule,
+BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -26,7 +27,7 @@ providers: [
     StatusBar,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-    AngularFirestoreModule
+    HorseService
   ],
   bootstrap: [AppComponent]
 })

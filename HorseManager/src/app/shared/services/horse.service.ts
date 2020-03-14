@@ -5,9 +5,15 @@ import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 export class HorseService {
-    constructor(private firestore: AngularFirestore) { }
-    updateHorse(horse: any) {
-        this.firestore.collection("horses").doc(horse.id).set(horse);
+
+    public HorseClubsId: Map<string, string>;
+
+    constructor(private firestore: AngularFirestore) { 
+        this.HorseClubsId = new Map();
+    }
+
+    updateHorse(horse: any, id: string) {
+        this.firestore.collection("horses").doc(id).set(horse);
     }
 
     createApp(id: string) {
@@ -27,7 +33,16 @@ export class HorseService {
         this.updateHorse({
             "isResident": "false",
             "name": horse.name,
-            "id": horse.id
-        });
+        }, horse.id);
+    }
+
+    checkResident(horse_id: string) {
+       return this.firestore.collection('residents', ref => ref.where('id_horse', '==', horse_id)).snapshotChanges();
+    }
+
+    getHorseClubTitle(id_club: string, id_horse: string){
+        this.HorseClubsId.set(id_horse, id_club);
+        console.log(this.HorseClubsId);
+        return this.firestore.collection('horse_clubs').doc(id_club).get();
     }
 }

@@ -1,0 +1,7 @@
+
+  <div class="feeding-info">
+    <div class="feeding-time">{{feeding.hour}}:{{feeding.minute}}</div>
+    <ion-icon class="add-icon" (click)="presentAlert()" name="add-circle-outline"></ion-icon>
+  </div>
+
+  <app-feeding-item class="care-row" *ngFor="let item of consist" [item]="item"></app-feeding-item>

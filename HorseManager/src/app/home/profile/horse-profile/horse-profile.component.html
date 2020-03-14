@@ -15,18 +15,35 @@
         <ion-col size="8">Орловский рысак</ion-col>
       </ion-row>
 
-      <div class="club-info">
-        <ion-button expand="block" class="registr-btn" (click)="presentAlert()" *ngIf="horse.isResident == 'false'">
+      <ion-row class="table-row ion-align-items-center ion-text-center" *ngIf="horse.isResident == 'true'">
+        <ion-col size="4" class="row-title">КСК</ion-col>
+        <ion-col size="8">{{horse_club}}</ion-col>
+      </ion-row>
+
+      <ion-row class="table-row ion-align-items-center ion-text-center" *ngIf="horse.isResident == 'true'">
+        <ion-col size="4" class="row-title">конюх</ion-col>
+        <ion-col size="8">{{groom}}</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    <div class="club-info">
+      <div class="btn" *ngIf="horse.isResident == 'false'">
+        <ion-button class="registr-btn" (click)="presentAlert()">
           Зарегистрировать в КСК
         </ion-button>
-        <div *ngIf="horse.isResident == 'request'">
-          Ваша заявка на присоединение к конному клубу рассматривается
-          <ion-button class="registr-btn" (click)="cancelRequest()">отменить заявку</ion-button>
-        </div>
-        <div *ngIf="horse.isResident == 'true'">
-          Ваша лошадь зарегистрирована в конном клубе
-        </div>
       </div>
-    </ion-grid>
+
+      <div *ngIf="horse.isResident == 'request'">
+        Ваша заявка на присоединение к конному клубу рассматривается
+        <ion-button class="registr-btn" (click)="cancelRequest()">отменить заявку</ion-button>
+      </div>
+
+      <div class="btn" *ngIf="horse.isResident == 'true'">
+        <ion-button class="registr-btn" href="/home/profile/care">
+          Информация по уходу
+        </ion-button>
+      </div>
+    </div>
   </div>
 </div>

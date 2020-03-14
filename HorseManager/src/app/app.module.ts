@@ -12,6 +12,7 @@ import { environment } from './../environments/environment';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { HorseService } from './shared/services/horse.service';
+import { CareService } from './shared/services/care.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ providers: [
     StatusBar,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
-    HorseService
+    HorseService,
+    CareService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>уход</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main">
+    <div class="care-table" *ngFor="let feeding of times">
+      <app-feeding [feeding]="feeding"></app-feeding>
+    </div>
+<!-- 
+    <div class="care-row">
+      <div class="care-title">
+        <div>10:00</div>
+        <div>-</div>
+        <div>18:00</div>
+      </div>
+      <div class="care-info">
+        <div>Левада №5</div>
+      </div>
+    </div> -->
+
+    <div class="walking">
+      <div class="walkin-title">
+        <div>
+          Выгул
+        </div>
+      </div>
+      <div class="care-row" *ngFor="let walking of walkings">
+        <div class="care-title"> {{walking.paddoc}} </div>
+        <div class="care-info-2"> 
+          {{walking.time_start}} - {{walking.time_end}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

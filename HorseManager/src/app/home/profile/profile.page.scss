@@ -1,5 +1,6 @@
 ion-header {
     z-index: 0;
+    text-align: center;
 }
 
 .main{
@@ -14,11 +15,22 @@ ion-header {
     padding: 10% 8% 10px 8%;
 }
 
-.photo-name{
-    padding-bottom: 10%;
+.person-info{
+    padding-bottom: 8%;
+    text-align: center;
 }
 
-ion-icon {
-    font-size: 80px;
-    color: black;
+.name {
+    padding-bottom: 12px;
+}
+
+.btn {
+    padding-top: 8%;
+    display: flex;
+    justify-content: center;
+}
+
+ion-icon{
+    font-size: 30px;
+    padding-right: 20px;
 }

@@ -1,0 +1,26 @@
+
+
+.care-row {
+    width: 100%;
+    box-sizing: border-box;
+    // height: 20px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1px;
+    border-radius: 5px;
+}
+
+.feeding-info{
+    display: flex;
+    align-items: center;
+    margin-bottom: 4%;
+    padding-left: 1%;
+}
+
+.feeding-time{
+    margin-right: 10px;
+    font-size: 18px;
+} 
+.add-icon {
+    font-size: 25px;
+}

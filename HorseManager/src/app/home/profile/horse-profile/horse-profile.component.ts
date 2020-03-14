@@ -18,9 +18,22 @@ export class HorseProfileComponent implements OnInit {
       isResident: string,
       id: string; }
 
+  private horse_club;
+  private groom;
+
   constructor(public alertController: AlertController, private horseService: HorseService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.horse.isResident == "true") {
+      console.log(this.horse.id);
+      this.horseService.checkResident(this.horse.id).subscribe( (data: any) => {
+        this.groom = data[0].payload.doc.data().groom;
+        let res = this.horseService.getHorseClubTitle(data[0].payload.doc.data().id_club, this.horse.id).subscribe(doc => {
+          this.horse_club = doc.data().title;
+    });
+     });
+    }
+  }
 
   async presentAlert() {
     const alert = await this.alertController.create({
@@ -55,9 +68,15 @@ export class HorseProfileComponent implements OnInit {
     this.horseService.createApp(id);
     this.horseService.updateHorse({
       "isResident": "request",
-      "name": this.horse.name,
-      "id": this.horse.id
-    });
+      "name": this.horse.name
+    }, this.horse.id);
+  }
+
+  ngDoCheck(){
+    //  console.log(this.horseService.checkResident(this.horse.id));
+    //  //.subscribe( data => {
+    // //   console.log(data);
+    // // });
   }
 
   cancelRequest() {

@@ -13,6 +13,8 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import { HorseService } from './shared/services/horse.service';
 import { CareService } from './shared/services/care.service';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +31,9 @@ providers: [
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     HorseService,
-    CareService
+    CareService,
+    AuthService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

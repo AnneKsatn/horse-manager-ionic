@@ -15,16 +15,18 @@ import { HorseService } from './shared/services/horse.service';
 import { CareService } from './shared/services/care.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-BrowserModule,
+    BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
 providers: [
     StatusBar,
@@ -33,7 +35,8 @@ providers: [
     HorseService,
     CareService,
     AuthService,
-    AuthGuard
+    AuthGuard,
+    HttpClientModule
   ],
   bootstrap: [AppComponent]
 })

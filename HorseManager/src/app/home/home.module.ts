@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { AuthGuard } from '../auth/auth.guard';
+
 
 @NgModule({
   imports: [
@@ -16,9 +16,6 @@ import { AuthGuard } from '../auth/auth.guard';
     IonicModule,
     HomePageRoutingModule,
   ],
-  declarations: [HomePage],
-  providers: [
-    AuthGuard
-  ]
+  declarations: [HomePage]
 })
 export class HomePageModule {}

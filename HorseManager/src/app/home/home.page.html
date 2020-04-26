@@ -52,18 +52,22 @@
     </ion-card-content>
   </ion-card>
 
-  <button>
-    <ion-icon name="star"></ion-icon>
-    Ветеренария
-  </button>
-  <ion-button size="large">
-    <ion-icon name="star"></ion-icon>
+  <div>
+  <ion-button>
+    <ion-icon></ion-icon>
      Ветеренария
   </ion-button>
-
-  <ion-button (click)="goToProfile()" size="large">
-    <ion-icon name="star"></ion-icon>
+</div>
+<div>
+  <ion-button (click)="goToProfile()">
+    <ion-icon></ion-icon>
      Профиль
+  </ion-button>
+</div>
+
+  <ion-button (click)="logout()">
+    <ion-icon></ion-icon>
+     Выход
   </ion-button>
 
 </ion-content>

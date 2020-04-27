@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "manager-fc68e"
+  },
+  "targets": {
+    "manager-fc68e": {
+      "hosting": {
+        "client": [
+          "dist"
+        ]
+      }
+    }
   }
 }

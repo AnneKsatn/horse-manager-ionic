@@ -1,55 +1,40 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>{{isLogin ? 'Вход' : 'Регистрация'}}</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding">
 
-  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
-    <ion-list>
-      <ion-item>
-        <ion-label position="floating">Email <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input
-          type="email"
-          ngModel
-          name="email"
-          required
-          email
-          #emailCtrl="ngModel"
-          ></ion-input>
-      </ion-item>
+  <div class="auth-content">
 
-      <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
-        <ion-label> Введите корректный адрес.</ion-label>
-      </ion-item>
+    <div class="ion-text-center title">Авторизация</div>
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <ion-list>
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">Email <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="email" ngModel name="email" required email #emailCtrl="ngModel"></ion-input>
+        </ion-item>
 
-      <ion-item >
-        <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input 
-          type="password"
-          ngModel
-          name="password"
-          required
-          minlength="6" 
-          #passCtrl="ngModel"
-          ></ion-input>
-      </ion-item>
+        <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+          <ion-label> Введите корректный адрес.</ion-label>
+        </ion-item>
 
-      <ion-item *ngIf="!passCtrl.valid && passCtrl.touched" lines="none">
-        <ion-label> Не менее 6 знаков.</ion-label>
-      </ion-item>
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="password" ngModel name="password" required minlength="6" #passCtrl="ngModel"></ion-input>
+        </ion-item>
 
-    </ion-list>
+        <ion-item *ngIf="!passCtrl.valid && passCtrl.touched" lines="none">
+          <ion-label> Не менее 6 знаков.</ion-label>
+        </ion-item>
 
-    <ion-button fill="clear" expand="block" (click)="onSwitchAuthModule()">
-       {{isLogin ? 'завести аккаунт' : 'войти'}}
-      </ion-button>
-    <ion-button 
-      type="submit" 
-      (click)="onLogin()"
-      expand="block"
-      [disabled]="!form.valid">{{isLogin ? 'войти' : 'зарегистрироваться'}}</ion-button>
+      </ion-list>
 
-  </form>
+      <div class="btn-block">
+        <ion-button fill="clear" expand="block" (click)="onSwitchAuthModule()">
+          {{isLogin ? 'завести аккаунт' : 'войти'}}
+        </ion-button>
+        <ion-button type="submit" (click)="onLogin()" expand="block" [disabled]="!form.valid">
+          {{isLogin ? 'войти' : 'зарегистрироваться'}}</ion-button>
+      </div>
+
+    </form>
+  </div>
 </ion-content>

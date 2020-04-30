@@ -17,6 +17,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -26,7 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    HttpClientModule
+    HttpClientModule,
   ],
 providers: [
     StatusBar,
@@ -36,7 +37,7 @@ providers: [
     CareService,
     AuthService,
     AuthGuard,
-    HttpClientModule
+    HttpClientModule,
   ],
   bootstrap: [AppComponent]
 })

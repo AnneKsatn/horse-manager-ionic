@@ -1,0 +1,31 @@
+.procedure-card {
+    width: 100%;
+    background: #FFFFFF;
+    box-shadow: 0px 50px 50px rgba(0, 0, 0, 0.15);
+    margin-bottom: 10%;
+}
+
+.header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.title {
+    min-width: 100%;
+    min-height: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10%;
+    background: #002541;
+    color: #F8F8F8;
+}
+
+.content {
+    padding-left: 10%;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.content div {
+    padding-top: 10px;
+}

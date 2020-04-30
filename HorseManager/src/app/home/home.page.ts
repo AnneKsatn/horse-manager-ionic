@@ -3,6 +3,7 @@ import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { VetService } from '../shared/services/vet.service';
 
 @Component({
   selector: 'app-home',
@@ -13,8 +14,10 @@ export class HomePage implements OnInit, OnDestroy {
 
   private authSub: Subscription;
   private previousAuthState  = false;
+  private vet_proc;
+  vets = [];
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService, private vetService: VetService) {}
 
   ngOnInit() {
     this.authSub = this.authService.userIsIsAuthenticated
@@ -24,11 +27,16 @@ export class HomePage implements OnInit, OnDestroy {
       }
       this.previousAuthState = isAuth;
     })
+
+    this.vetService.getVetProcedures();
   }
 
   goToProfile(){
-    console.log("adw");
     this.router.navigateByUrl("/home/profile");
+  }
+
+  goToVeterenary(){
+    this.router.navigateByUrl("/home/vet");
   }
 
   logout(){

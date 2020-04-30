@@ -12,7 +12,12 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule),
+  },
+  {
+    path: 'vet',
+    loadChildren: () => import('./veterenary/veterenary.module').then( m => m.VeterenaryPageModule)
   }
+
 ];
 
 @NgModule({

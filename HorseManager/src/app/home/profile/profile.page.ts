@@ -24,7 +24,8 @@ export class ProfilePage implements OnInit {
           return {
             "isResident": item.payload.doc.data().isResident,
             "name": item.payload.doc.data().name,
-            "id": item.payload.doc.id
+            "id": item.payload.doc.id,
+            "club_id": item.payload.doc.data().club_id
           };
          });
        }

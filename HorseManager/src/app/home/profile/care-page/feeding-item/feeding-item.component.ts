@@ -29,7 +29,10 @@ export class FeedingItemComponent implements OnInit {
         }, {
           text: 'Подтвердить',
           handler: (data) => {
-            this.careService.deleteFeedingConsist(this.item.id);
+            this.careService.deleteFeedingConsist(
+              this.item.feeding_id,
+              this.item.id, 
+              this.item.horse_id);
           }
         }
       ]

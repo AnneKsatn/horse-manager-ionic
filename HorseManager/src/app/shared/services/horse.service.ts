@@ -16,24 +16,31 @@ export class HorseService {
         this.firestore.collection("horses").doc(id).set(horse);
     }
 
-    createApp(id: string) {
+    createRequestInClub(horse_id: string, club_id: string) {
         this.firestore.collection('joining_application').add({
-            horse_id: 1,
-            club_id: id
+            horse_id: horse_id,
+            club_id: club_id,
+            status: "active"
         });
     }
 
-    deleteApp(horse: any) {
+    getRequestID(horse_id: string){
+       return this.firestore.collection('joining_application', ref => ref.where('horse_id', '==', horse_id)).snapshotChanges();
+    }
 
-        this.firestore.collection('joining_application', ref => ref.where('horse_id', '==', 1)).snapshotChanges().subscribe(data => {
-            if(data.length != 0) {
-                this.firestore.collection('joining_application').doc(data[0]['payload'].doc.id).delete();
-            }
-        });
+    deleteRequestInClub(horse: any, request_id: string) {
+
+        console.log(request_id);
+        this.firestore.collection('joining_application').doc(request_id).delete();
+
         this.updateHorse({
             "isResident": "false",
             "name": horse.name,
         }, horse.id);
+
+        this.firestore.collection("/residents/1/horses").snapshotChanges().subscribe((data: any) => {
+            console.log(data[0].payload.doc.data().w);
+        })
     }
 
     checkResident(horse_id: string) {

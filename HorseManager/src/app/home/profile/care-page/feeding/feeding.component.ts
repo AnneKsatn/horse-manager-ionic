@@ -16,15 +16,22 @@ export class FeedingComponent implements OnInit {
   private consist;
 
   ngOnInit() {
-    this.careService.getFeedingConsist(this.feeding.id).subscribe((data: any) => {
-      this.consist = data.map(function(item){
+    this.careService.getFeedingConsist(this.feeding.id, this.feeding.horse_id).subscribe(
+      (data: any) => {
+
+        this.consist = data.map(function (item) {
           return {
             "amount": item.payload.doc.data().amount,
             "item": item.payload.doc.data().item,
             "id": item.payload.doc.id
           };
-         });
-  });
+        });
+
+        this.consist.forEach(element => {
+          element.horse_id = this.feeding.horse_id;
+          element.feeding_id = this.feeding.id;
+        });
+      });
   }
 
   
@@ -53,7 +60,11 @@ export class FeedingComponent implements OnInit {
         }, {
           text: 'Подтвердить',
           handler: (data) => {
-            this.careService.postFeedingConsist(this.feeding.id, data.item, data.amount);
+            this.careService.postFeedingConsist(
+              this.feeding.id, 
+              this.feeding.horse_id,
+              data.item, 
+              data.amount);
           }
         }
       ]

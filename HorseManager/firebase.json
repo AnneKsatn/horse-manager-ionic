@@ -7,6 +7,7 @@
     "source": "functions"
   },
   "hosting": {
+    "site": "manager-fc68e",
     "public": "dist",
     "ignore": [
       "firebase.json",

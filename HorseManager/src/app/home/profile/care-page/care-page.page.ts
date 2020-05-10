@@ -28,7 +28,7 @@ export class CarePagePage implements OnInit {
       this.feeding_times = data.map(function(item: any) {
         return {
           "hour": item.payload.doc.data().hour,
-          "minute": item.payload.doc.data().minute,
+          "minutes": item.payload.doc.data().minutes,
           "id": item.payload.doc.id,
         }
       });

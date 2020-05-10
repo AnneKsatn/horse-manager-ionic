@@ -13,7 +13,7 @@ export class FeedingComponent implements OnInit {
 
   constructor(private careService: CareService, public alertController: AlertController) {}
 
-  private consist;
+  public consist;
 
   ngOnInit() {
     this.careService.getFeedingConsist(this.feeding.id, this.feeding.horse_id).subscribe(

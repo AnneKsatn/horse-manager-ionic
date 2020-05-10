@@ -43,7 +43,7 @@ export class AuthPage implements OnInit {
       }
 
       authObs.subscribe(resData => {
-        console.log(resData);
+
         this.isLoading = false;
         loadingEl.dismiss();
         this.router.navigateByUrl('/home');
@@ -85,5 +85,7 @@ export class AuthPage implements OnInit {
       buttons: ['Okay']
     }).then(alertEl => alertEl.present());
   }
+
+  onLogin(){}
 
 }

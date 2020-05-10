@@ -49,7 +49,6 @@ export class HorseService {
 
     getHorseClubTitle(id_club: string, id_horse: string){
         this.HorseClubsId.set(id_horse, id_club);
-        console.log(this.HorseClubsId);
         return this.firestore.collection('horse_clubs').doc(id_club).get();
     }
 }

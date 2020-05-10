@@ -30,7 +30,6 @@ export class HorseProfileComponent implements OnInit {
   constructor(public alertController: AlertController, private horseService: HorseService, private router: Router) { }
 
   ngOnInit() {
-    console.log(this.horse.id);
 
     if (this.horse.isResident == "true") {
       // this.horseService.checkResident(this.horse.id).subscribe((data: any) => {
@@ -45,7 +44,6 @@ export class HorseProfileComponent implements OnInit {
       this.horseService.getRequestID(this.horse.id).subscribe(data => {
         if (data.length != 0) {
           this.request_id = data[0]['payload'].doc.id;
-          console.log(this.request_id);
         }
       });;
     }

@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from '../../auth/auth.service';
+import { take } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
 export class HorseService {
 
-    public HorseClubsId: Map<string, string>;
+    user_id: string;
 
-    constructor(private firestore: AngularFirestore) { 
-        this.HorseClubsId = new Map();
+    constructor(private firestore: AngularFirestore, private authService: AuthService) { 
+        this.authService.userId.pipe(take(1)).subscribe( (userId: string) =>{
+            this.user_id = userId;
+          })
     }
 
+    getHorses(){
+        return this.firestore.collection('horses', ref => ref.where('user_id', '==', this.user_id)).snapshotChanges()
+    }
+    
     updateHorse(horse: any, id: string) {
-        this.firestore.collection("horses").doc(id).set(horse);
+        this.firestore.collection("horses").doc(id).update(horse);
     }
 
     createRequestInClub(horse_id: string, club_id: string) {
@@ -48,7 +56,6 @@ export class HorseService {
     }
 
     getHorseClubTitle(id_club: string, id_horse: string){
-        this.HorseClubsId.set(id_horse, id_club);
         return this.firestore.collection('horse_clubs').doc(id_club).get();
     }
 }

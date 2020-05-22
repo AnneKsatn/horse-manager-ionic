@@ -19,9 +19,10 @@ export class HorseProfileComponent implements OnInit {
       isResident: string,
       id: string; 
       club_id: string;
+      birth_year: string;
     }
 
-  private horse_club;
+  public horse_club;
   private groom;
   private request_id;
 
@@ -32,6 +33,9 @@ export class HorseProfileComponent implements OnInit {
   ngOnInit() {
 
     if (this.horse.isResident == "true") {
+      this.horseService.getHorseClubTitle(this.horse.club_id).subscribe( (data: any) => {
+        this.horse_club = data.data().title;
+      })
       // this.horseService.checkResident(this.horse.id).subscribe((data: any) => {
       //   this.groom = data[0].payload.doc.data().groom;
       //   let res = this.horseService.getHorseClubTitle(data[0].payload.doc.data().id_club, this.horse.id).subscribe(doc => {
@@ -82,7 +86,6 @@ export class HorseProfileComponent implements OnInit {
     this.horseService.createRequestInClub(horse_id, club_id);
     this.horseService.updateHorse({
       "isResident": "request",
-      "name": this.horse.name
     }, this.horse.id);
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { HorseService } from '../../../shared/services/horse.service';
 
 @Component({
   selector: 'app-procedure-card',
@@ -8,10 +9,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class ProcedureCardComponent implements OnInit {
 
   @Input('procedure') procedure: any;
-  constructor() { }
+
+  constructor(private horseService: HorseService) { }
 
   ngOnInit() {
-    console.log(this.procedure);
+    console.log(this.procedure['club_id'])
+    console.log(this.procedure.club_id)
+    // this.horseService.getHorseClubTitle(this.procedure.club_id).subscribe( data => {
+    //   this.procedure.club_title = data.data().title;
+    //  })
   }
 
 }

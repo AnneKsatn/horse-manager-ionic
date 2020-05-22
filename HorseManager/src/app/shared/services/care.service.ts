@@ -22,7 +22,6 @@ export class CareService {
 
     deleteFeedingConsist(feeding_id: string, item_id: string, horse_id: string){
         let request = "feeding/" + feeding_id + "/horses/" + horse_id + "/consist";
-        
         this.firestore.collection(request).doc(item_id).delete();
     }
 

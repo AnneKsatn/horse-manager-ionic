@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VetService } from 'src/app/shared/services/vet.service';
+import { HorseService } from '../../shared/services/horse.service';
+import { VetProcedure } from 'src/app/shared/models/vet-procedure.model';
 
-
-export interface Vet{
-  date: number,
-  title: string,
-  price: string,
-  vet: string,
-  vet_id: string
-  club_id: string
-  horse_id: string
-}
 
 @Component({
   selector: 'app-veterenary',
@@ -19,34 +11,25 @@ export interface Vet{
 })
 export class VeterenaryPage implements OnInit {
 
-  constructor(private vetService: VetService) { }
+  constructor(private vetService: VetService, private horseService: HorseService) { }
 
-  vets: Vet[];
+  vets: VetProcedure[];
 
   ngOnInit() {
-    this.vetService.getVetProcedures().subscribe(
-      (data: any) => {
-        let p = data.map(function (item) {
-          return {
-            vet_id: item.payload.doc.data().vet_id,
-            horse_id: item.payload.doc.data().horse_id
-          };
-        });
+    this.vetService.getProcedures().subscribe((data: any) => {
+      console.log(Object.keys(data))
 
-
-        p.forEach(item => {
-          this.vetService.getVetProcedureInfo(item.vet_id).subscribe(doc => {
-            item.date = Number(doc.data().date);
-            item.title = doc.data().title;
-            item.price = doc.data().price;
-            item.club_id = doc.data().club_id;
-            item.vet = doc.data().vet;
-          });
-        })
-
-        this.vets = p;
+      var result = Object.keys(data).map(function (key) {
+        return data[key];
       });
-   }
 
+      this.vets = result
 
+      this.vets.forEach( item => {
+        this.horseService.getHorseName(item.horse_id).subscribe( data => {
+          item.horse_name = data.data().name
+        })
+      })
+    })
+  }
 }

@@ -11,7 +11,11 @@ const routes: Routes = [
   {
     path: 'care',
     loadChildren: () => import('./care-page/care-page.module').then( m => m.CarePagePageModule)
+  },  {
+    path: 'add-horse',
+    loadChildren: () => import('./add-horse/add-horse.module').then( m => m.AddHorsePageModule)
   }
+
 ];
 
 @NgModule({

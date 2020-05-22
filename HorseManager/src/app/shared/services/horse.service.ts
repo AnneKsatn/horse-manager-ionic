@@ -4,7 +4,6 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
 import { take } from 'rxjs/operators';
 
-
 @Injectable({ providedIn: 'root' })
 export class HorseService {
 
@@ -14,6 +13,10 @@ export class HorseService {
         this.authService.userId.pipe(take(1)).subscribe( (userId: string) =>{
             this.user_id = userId;
           })
+    }
+
+    getHorseName(horse_id: string){
+        return this.firestore.collection('horses').doc(horse_id).get()
     }
 
     getHorses(){
@@ -55,7 +58,17 @@ export class HorseService {
        return this.firestore.collection('residents', ref => ref.where('id_horse', '==', horse_id)).snapshotChanges();
     }
 
-    getHorseClubTitle(id_club: string, id_horse: string){
+    getHorseClubTitle(id_club: string){
         return this.firestore.collection('horse_clubs').doc(id_club).get();
+    }
+
+    addHorse(date: Date, name: string, sex: string){
+        this.firestore.collection("horses").add({
+            bith_date: date,
+            name: name,
+            user_id: this.user_id,
+            isResident: "false",
+            sex: sex
+        })
     }
 }

@@ -7,17 +7,12 @@
     <ion-grid>
       <ion-row class="table-row ion-align-items-center ion-text-center">
         <ion-col size="4" class="row-title">год рожд.</ion-col>
-        <ion-col size="8">2003</ion-col>
-      </ion-row>
-
-      <ion-row class="table-row ion-align-items-center ion-text-center">
-        <ion-col size="4" class="row-title">порода</ion-col>
-        <ion-col size="8">Орловский рысак</ion-col>
+        <ion-col size="8">{{horse.birth_year}}</ion-col>
       </ion-row>
 
       <ion-row class="table-row ion-align-items-center ion-text-center" *ngIf="horse.isResident == 'true'">
         <ion-col size="4" class="row-title">КСК</ion-col>
-        <ion-col size="8">{{horse.club_id}}</ion-col>
+        <ion-col size="8">{{horse_club}}</ion-col>
       </ion-row>
 
       <!-- <ion-row class="table-row ion-align-items-center ion-text-center" *ngIf="horse.isResident == 'true'">
@@ -33,20 +28,22 @@
           Зарегистрировать в КСК
         </ion-button>
       </div>
-
+    
       <div *ngIf="horse.isResident == 'request'">
-        Ваша заявка на присоединение к конному клубу рассматривается
-        <ion-button class="registr-btn" (click)="cancelRequest()">отменить заявку</ion-button>
+        <div class="btn-text">
+          Заявка в КСК отправлена
+        </div> 
+        <div class="btn">
+          <ion-button class="registr-btn" (click)="cancelRequest()">отменить заявку</ion-button>
+        </div>
       </div>
-  
+    
       <div class="btn" *ngIf="horse.isResident == 'true'">
-        <ion-button class="registr-btn" 
-        [routerLink]="['/home/profile/care']"
-        [queryParams]="{horse_id: horse.id, club_id: horse.club_id}"
-        >
+        <ion-button class="registr-btn" [routerLink]="['/home/profile/care']"
+          [queryParams]="{horse_id: horse.id, club_id: horse.club_id}">
           Информация по уходу
         </ion-button>
       </div>
     </div>
-  </div>
-</div>
+    </div>
+    </div>

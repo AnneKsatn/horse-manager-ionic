@@ -47,7 +47,7 @@ export class FeedingComponent implements OnInit {
         {
           name: 'amount',
           type: 'text',
-          placeholder: '200 гр'
+          placeholder: '200'
         }],
       buttons: [
         {

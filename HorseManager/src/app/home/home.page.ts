@@ -27,8 +27,6 @@ export class HomePage implements OnInit, OnDestroy {
       }
       this.previousAuthState = isAuth;
     })
-
-    this.vetService.getVetProcedures();
   }
 
   goToProfile(){

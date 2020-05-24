@@ -71,4 +71,12 @@ export class HorseService {
             sex: sex
         })
     }
+
+    getHorseInfo(horse_id: string){
+        return this.firestore.collection('horses').doc(horse_id).get();
+    }
+
+    delteHorse(horse_id: string){
+        this.firestore.collection("horses").doc(horse_id).delete();
+    }
 }

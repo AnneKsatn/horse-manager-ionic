@@ -14,6 +14,10 @@ const routes: Routes = [
   },  {
     path: 'add-horse',
     loadChildren: () => import('./add-horse/add-horse.module').then( m => m.AddHorsePageModule)
+  },
+  {
+    path: 'edit-horse',
+    loadChildren: () => import('./edit-horse/edit-horse.module').then( m => m.EditHorsePageModule)
   }
 
 ];

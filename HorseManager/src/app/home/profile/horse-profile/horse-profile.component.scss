@@ -1,18 +1,26 @@
 .horse-name-title{
-    min-width: 100%;
+    width: 100%;
     min-height: 55px;
+    
     background-color: #002541;
     padding-right: 8%;
-    box-sizing: border-box;
+    // box-sizing: border-box;
+
+
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
 }
+
+
 
 .horse-name{
     color: white;
     font-family: Chivo;
     font-style: normal;
     font-weight: normal;
-    padding-top: 15px;
-   
 }
 
 .horse-info{

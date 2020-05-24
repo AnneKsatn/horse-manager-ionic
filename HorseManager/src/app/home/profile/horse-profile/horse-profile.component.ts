@@ -22,6 +22,8 @@ export class HorseProfileComponent implements OnInit {
       birth_year: string;
     }
 
+  public horse_JSON;
+
   public horse_club;
   private groom;
   private request_id;
@@ -102,5 +104,9 @@ export class HorseProfileComponent implements OnInit {
 
   goToCarePage(){
     this.router.navigateByUrl("/home/profile/care");
+  }
+
+  editHorse(horse_id: string){
+    console.log(horse_id)
   }
 }

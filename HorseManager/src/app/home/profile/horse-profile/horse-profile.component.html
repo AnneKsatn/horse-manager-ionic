@@ -1,6 +1,13 @@
-<div class="horse-name-title ion-text-end">
-  <ion-title class="horse-name">{{horse.name}}</ion-title>
+<div class="horse-name-title">
+  <div><ion-title class="horse-name">{{horse.name}} </ion-title></div>
+  <ion-icon name="pencil-outline"
+
+    [routerLink]="['/home/profile/edit-horse']"
+    [queryParams]="{horse_id: horse.id}"
+
+    ></ion-icon>
 </div>
+
 
 <div class="horse-info">
   <div>

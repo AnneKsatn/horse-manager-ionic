@@ -18,6 +18,8 @@ export class EditHorsePage implements OnInit {
     name: "",
     gender: "",
     id: "",
+    isResident: "",
+    club_id: "",
   };
 
 
@@ -31,7 +33,9 @@ export class EditHorsePage implements OnInit {
         birth: doc.data().bith_date.toDate().getFullYear(),
         name: doc.data().name,
         gender: doc.data().sex,
-        id: doc.id
+        id: doc.id,
+        isResident: doc.data().isResident,
+        club_id: doc.data().club_id
       }
     })
 
@@ -58,5 +62,9 @@ export class EditHorsePage implements OnInit {
   deleteHorse(){
     this.horseService.delteHorse(this.horse_id);
     this.router.navigateByUrl("/home/profile")
+  }
+
+  leaveHorseClub(club_id: string){
+
   }
 }

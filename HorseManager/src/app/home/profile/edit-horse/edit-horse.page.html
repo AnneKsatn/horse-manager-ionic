@@ -55,9 +55,17 @@
         </ion-button>
       </div>
 
+
     </form>
   </div>
 
-  <ion-button color="danger" (click)="deleteHorse()">Удалить</ion-button>
+  
+  <div class="btn-block"  *ngIf="horse_info.isResident == 'true'">
+    <ion-button (click)="leaveHorseClub()" fill="clear" expand="block">
+      выйти из КСК
+    </ion-button>
+  </div>
+
+  <ion-button color="danger" (click)="deleteHorse(horse_info.club_id)">Удалить</ion-button>
 
 </ion-content>

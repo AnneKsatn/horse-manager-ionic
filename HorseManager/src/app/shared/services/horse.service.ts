@@ -9,7 +9,7 @@ export class HorseService {
 
     user_id: string;
 
-    constructor(private firestore: AngularFirestore, private authService: AuthService) { 
+    constructor(private firestore: AngularFirestore, private authService: AuthService, private careService: CareService) { 
         this.authService.userId.pipe(take(1)).subscribe( (userId: string) =>{
             this.user_id = userId;
           })
@@ -78,5 +78,19 @@ export class HorseService {
 
     delteHorse(horse_id: string){
         this.firestore.collection("horses").doc(horse_id).delete();
+    }
+
+    leaveHorseClub(horse_id: string, club_id: string){
+        this.firestore.collection('horses').doc(horse_id).update({
+            isResident: "false",
+            club_id: ""
+        })
+
+        let req_adress = 'residents/' + club_id + '/horses'
+        this.firestore.collection(req_adress).doc(horse_id).delete();
+
+        this.careService.getFeedings(club_id).subscribe( data=> {
+            console.log(data)
+        })
     }
 }

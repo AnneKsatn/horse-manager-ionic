@@ -64,7 +64,8 @@ export class EditHorsePage implements OnInit {
     this.router.navigateByUrl("/home/profile")
   }
 
-  leaveHorseClub(club_id: string){
-
+  leaveHorseClub(horse_id: string, club_id: string){
+    this.horseService.leaveHorseClub(this.horse_info.id, this.horse_info.club_id)
+    this.router.navigateByUrl("/home/profile")
   }
 }

@@ -16,7 +16,7 @@ export class FeedingComponent implements OnInit {
   public consist;
 
   ngOnInit() {
-    this.careService.getFeedingConsist(this.feeding.id, this.feeding.horse_id).subscribe(
+    this.careService.getFeedingConsist(this.feeding.id, this.feeding.horse_id, this.feeding.club_id).subscribe(
       (data: any) => {
 
         this.consist = data.map(function (item) {
@@ -30,6 +30,7 @@ export class FeedingComponent implements OnInit {
         this.consist.forEach(element => {
           element.horse_id = this.feeding.horse_id;
           element.feeding_id = this.feeding.id;
+          element.club_id = this.feeding.club_id;
         });
       });
   }
@@ -64,7 +65,7 @@ export class FeedingComponent implements OnInit {
               this.feeding.id, 
               this.feeding.horse_id,
               data.item, 
-              data.amount);
+              data.amount, this.feeding.club_id);
           }
         }
       ]

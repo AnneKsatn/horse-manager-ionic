@@ -35,6 +35,7 @@ export class CarePagePage implements OnInit {
 
       this.feeding_times.forEach(element => {
         element.horse_id = this.horse_id;
+        element.club_id = this.club_id;
       });
     });
 

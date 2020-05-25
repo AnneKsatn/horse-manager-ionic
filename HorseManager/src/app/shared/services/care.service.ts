@@ -10,9 +10,9 @@ export class CareService {
     constructor(private firestore: AngularFirestore, private horseService: HorseService) { }
 
 
-    postFeedingConsist(feeding_id: string, horse_id: string, item: string, amount: string){
-        
-        let request = "feeding/" + feeding_id + "/horses/" + horse_id + "/consist";
+    postFeedingConsist(feeding_id: string, horse_id: string, item: string, amount: string, club_id: string) {
+
+        let request = "residents/" + club_id + "/horses/" + horse_id + "/feeding/" + feeding_id + "/consist";
 
         this.firestore.collection(request).add({
             item: item,
@@ -20,23 +20,28 @@ export class CareService {
         });
     }
 
-    deleteFeedingConsist(feeding_id: string, item_id: string, horse_id: string){
-        let request = "feeding/" + feeding_id + "/horses/" + horse_id + "/consist";
+    deleteFeedingConsist(feeding_id: string, item_id: string, horse_id: string, club_id: string) {
+
+        let request = "residents/" + club_id + "/horses/" + horse_id + "/feeding/" + feeding_id + "/consist";
         this.firestore.collection(request).doc(item_id).delete();
     }
 
-    getWalking(horse_id: string){
+    getWalking(horse_id: string) {
         return this.firestore.collection('walking', ref => ref.where('horse_id', '==', horse_id)).snapshotChanges();
     }
 
-    getFeedings(club_id: string){
+    getFeedings(club_id: string) {
+
         let request = "horse_clubs/" + club_id + "/feedings";
 
         return this.firestore.collection(request, ref => ref.orderBy('hour')).snapshotChanges();
     }
 
-    getFeedingConsist(feeding_id: string, horse_id: string){
-        let request = "feeding/" + feeding_id + "/horses/" + horse_id + "/consist";
+    getFeedingConsist(feeding_id: string, horse_id: string, club_id: string) {
+
+        let request = "residents/" + club_id + "/horses/" + horse_id + "/feeding/" + feeding_id + "/consist";
+
+        // let request = "feeding/" + feeding_id + "/horses/" + horse_id + "/consist";
 
         return this.firestore.collection(request).snapshotChanges();
     }

@@ -32,7 +32,7 @@ export class FeedingItemComponent implements OnInit {
             this.careService.deleteFeedingConsist(
               this.item.feeding_id,
               this.item.id, 
-              this.item.horse_id);
+              this.item.horse_id, this.item.club_id);
           }
         }
       ]

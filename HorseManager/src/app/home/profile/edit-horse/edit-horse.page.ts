@@ -60,11 +60,11 @@ export class EditHorsePage implements OnInit {
   }
 
   deleteHorse(){
-    this.horseService.delteHorse(this.horse_id);
+    this.horseService.delteHorse(this.horse_id,  this.horse_info.club_id);
     this.router.navigateByUrl("/home/profile")
   }
 
-  leaveHorseClub(horse_id: string, club_id: string){
+  leaveHorseClub(){
     this.horseService.leaveHorseClub(this.horse_info.id, this.horse_info.club_id)
     this.router.navigateByUrl("/home/profile")
   }

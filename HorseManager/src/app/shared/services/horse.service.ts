@@ -76,8 +76,11 @@ export class HorseService {
         return this.firestore.collection('horses').doc(horse_id).get();
     }
 
-    delteHorse(horse_id: string){
+    delteHorse(horse_id: string, club_id: string){
         this.firestore.collection("horses").doc(horse_id).delete();
+
+        let req_adress = 'residents/' + club_id + '/horses'
+        this.firestore.collection(req_adress).doc(horse_id).delete();
     }
 
     leaveHorseClub(horse_id: string, club_id: string){

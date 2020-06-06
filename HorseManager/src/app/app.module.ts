@@ -16,6 +16,7 @@ import { CareService } from './shared/services/care.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import {FullCalendarModule} from 'primeng/fullcalendar';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     HttpClientModule,
+    FullCalendarModule
   ],
 providers: [
     StatusBar,
@@ -38,6 +40,7 @@ providers: [
     AuthService,
     AuthGuard,
     HttpClientModule,
+    FullCalendarModule
   ],
   bootstrap: [AppComponent]
 })

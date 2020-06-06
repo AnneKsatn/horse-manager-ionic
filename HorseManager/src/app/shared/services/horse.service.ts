@@ -2,14 +2,24 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
+import { IHorse } from '../models/horse.model';
+import { HttpClient, HttpRequest, HttpResponse } from '@angular/common/http';
+import * as moment from 'moment/moment';
+
+type EntityResponseType = HttpResponse<IHorse>;
+type EntityArrayResponseType = HttpResponse<IHorse[]>;
 
 @Injectable({ providedIn: 'root' })
 export class HorseService {
 
+
+    public resourceUrl = 'http://192.168.43.9:8080/' + 'api/horses';
+
+
     user_id: string;
 
-    constructor(private firestore: AngularFirestore, private authService: AuthService) { 
+    constructor(private firestore: AngularFirestore, private authService: AuthService, private http: HttpClient) { 
         this.authService.userId.pipe(take(1)).subscribe( (userId: string) =>{
             this.user_id = userId;
           })
@@ -92,4 +102,43 @@ export class HorseService {
         let req_adress = 'residents/' + club_id + '/horses'
         this.firestore.collection(req_adress).doc(horse_id).delete();
     }
+
+    getAll(req?: any): Observable<EntityArrayResponseType> {
+        let user_id = 1;
+        // const options = createRequestOption(req);
+        return this.http
+          .get<IHorse[]>(`http://192.168.43.9:8080/api/user-horses?owner=${user_id}`, { observe: 'response' })
+          .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+      }
+
+    create(horse: IHorse){
+
+        console.log("create")
+        const copy = this.convertDateFromClient(horse);
+        return this.http
+          .post<IHorse>(this.resourceUrl, horse, { observe: 'response' })
+    }
+
+    protected convertDateFromClient(horse: IHorse): IHorse {
+        const copy: IHorse = Object.assign({}, horse, {
+          birth: horse.birth && horse.birth.isValid() ? horse.birth.toJSON() : undefined,
+        });
+        return copy;
+      }
+    
+      protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
+        if (res.body) {
+          res.body.birth = res.body.birth ? moment(res.body.birth) : undefined;
+        }
+        return res;
+      }
+    
+      protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+          res.body.forEach((horse: IHorse) => {
+            horse.birth = horse.birth ? moment(horse.birth) : undefined;
+          });
+        }
+        return res;
+      }
 }

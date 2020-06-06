@@ -27,42 +27,77 @@ export class AuthPage implements OnInit {
   ngOnInit() {
   }
 
-  authenticate(email: string, password: string){
-    this.isLoading = true;
-    this.loadCtrl
-    .create({keyboardClose: true, message: 'Logging in...'})
-    .then(loadingEl => {
-      loadingEl.present();
+  
+ 
+  authenticate(email: string, password: string) {
 
-      let authObs: Observable<AuthResponseData>;
 
-      if(this.isLogin) {
-        authObs = this.authService.login(email, password);
-      } else {
-        authObs = this.authService.signup(email, password);
+    this.authService.login(email, password).subscribe(resData => {
+      this.isLoading = false;
+      this.router.navigateByUrl('/home');
+    }, errRes => {
+
+      const code = errRes.error.error.message;
+      let message = 'Не получилось зрагитрироваться, попробуйте еще раз';
+      if (code === 'EMAIL_NOT_FOUND') {
+        message = 'Данные адрес не зарегистрирован'
+      } else if (code === 'INVALID_PASSWORD') {
+        message = 'Неправильный пароль'
       }
 
-      authObs.subscribe(resData => {
 
-        this.isLoading = false;
-        loadingEl.dismiss();
-        this.router.navigateByUrl('/home');
-      }, errRes => {
-        loadingEl.dismiss();
-        const code = errRes.error.error.message;
-        let message = 'Не получилось зрагитрироваться, попробуйте еще раз';
-        if( code === 'EMAIL_EXISTS') {
-          message = 'Этот адрес уже зарегистрирован'
-        } else if (code === 'EMAIL_NOT_FOUND') {
-          message = 'Данные адрес не зарегистрирован'
-        } else if (code === 'INVALID_PASSWORD') {
-          message = 'Неправильный пароль'
-        }
+    // this.isLoading = true;
+    // this.loadCtrl
+    //   .create({ keyboardClose: true, message: 'Logging in...' })
+    //   .then(loadingEl => {
+    //     loadingEl.present();
 
-        this.showAlert(message);
-      });
+    //     let authObs: Observable<AuthResponseData>;
+
+    //     this.authService.login(email, password).subscribe(resData => {
+    //       this.isLoading = false;
+    //       loadingEl.dismiss();
+    //       this.router.navigateByUrl('/home');
+    //     }, errRes => {
+
+    //       const code = errRes.error.error.message;
+    //       let message = 'Не получилось зрагитрироваться, попробуйте еще раз';
+    //       if (code === 'EMAIL_NOT_FOUND') {
+    //         message = 'Данные адрес не зарегистрирован'
+    //       } else if (code === 'INVALID_PASSWORD') {
+    //         message = 'Неправильный пароль'
+    //       }
+    //     });
+
+
+      // if(this.isLogin) {
+      //   authObs = this.authService.login(email, password);
+      // } else {
+      //   authObs = this.authService.signup(email, password);
+      // }
+
+      // authObs.subscribe(resData => {
+
+      //   this.isLoading = false;
+      //   loadingEl.dismiss();
+      //   this.router.navigateByUrl('/home');
+      // }, errRes => {
+      //   loadingEl.dismiss();
+      //   const code = errRes.error.error.message;
+      //   let message = 'Не получилось зрагитрироваться, попробуйте еще раз';
+      //   if( code === 'EMAIL_EXISTS') {
+      //     message = 'Этот адрес уже зарегистрирован'
+      //   } else if (code === 'EMAIL_NOT_FOUND') {
+      //     message = 'Данные адрес не зарегистрирован'
+      //   } else if (code === 'INVALID_PASSWORD') {
+      //     message = 'Неправильный пароль'
+      //   }
+
+      //   this.showAlert(message);
+      // });
     });
   }
+
 
   onSubmit(form: NgForm){
     if(!form.valid) {
@@ -86,6 +121,8 @@ export class AuthPage implements OnInit {
     }).then(alertEl => alertEl.present());
   }
 
-  onLogin(){}
+  onLogin(){
+    
+  }
 
 }

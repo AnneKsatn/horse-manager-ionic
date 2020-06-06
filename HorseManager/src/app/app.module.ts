@@ -15,8 +15,10 @@ import { HorseService } from './shared/services/horse.service';
 import { CareService } from './shared/services/care.service';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxWebstorageModule } from 'ngx-webstorage';
 import {FullCalendarModule} from 'primeng/fullcalendar';
+import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import {FullCalendarModule} from 'primeng/fullcalendar';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     HttpClientModule,
-    FullCalendarModule
+    FullCalendarModule,
+    NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
   ],
 providers: [
     StatusBar,
@@ -40,7 +43,12 @@ providers: [
     AuthService,
     AuthGuard,
     HttpClientModule,
-    FullCalendarModule
+    FullCalendarModule,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

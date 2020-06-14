@@ -1,7 +1,7 @@
 
 
 <ion-content>
-<div class="content">
+<!-- <div class="content">
   <div class='btn-block'>
     <ion-button expand="full" (click)="goToVeterenary()">
       <ion-icon></ion-icon>
@@ -18,7 +18,65 @@
     Выход
   </ion-button>
 
+</div> -->
+
+
+<div class="main-menu">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <div class="inox" (click)="goToProfile()">
+
+          <div class="c">
+            <ion-icon class="menu-icon" src="../assets/horse.svg"></ion-icon>
+          </div>
+   
+          <div class="text">профиль</div>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <div class="inox" (click)="goToManege()">
+
+            <div class="c">
+              <ion-icon class="menu-icon" name="home-outline"></ion-icon>
+            </div>
+
+            <div class="text">кск</div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="inox" (click)="goToVeterenary()">
+
+          <div class="c">
+            <ion-icon class="menu-icon" name="medkit-outline"></ion-icon>
+          </div>
+
+          <div class="text">ветеринария</div>
+
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <div class="inox">
+
+            <div class="c">
+              <ion-icon class="menu-icon" name="cash-outline"></ion-icon>
+            </div>
+
+            <div class="text">финансы</div>
+
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </div>
+
+
 
 
 </ion-content>

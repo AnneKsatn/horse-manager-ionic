@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from '../../auth/auth.service';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class HorseService {
@@ -17,6 +17,18 @@ export class HorseService {
 
     getHorseName(horse_id: string){
         return this.firestore.collection('horses').doc(horse_id).get()
+    }
+
+
+    getHorseIds() {
+        return from(this.firestore.collection('horses', ref => ref.where('user_id', '==', this.user_id)).snapshotChanges())
+            .pipe(map((horses: any) => {
+
+                let result = [];
+                horses.map(function (doc) { result.push(doc.payload.doc.id) })
+
+                return result;
+            }));
     }
 
     getHorses(){

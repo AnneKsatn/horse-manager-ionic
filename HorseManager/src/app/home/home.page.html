@@ -1,48 +1,24 @@
 
 
 <ion-content>
-  <!-- <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>КСК "Авалон"</ion-card-subtitle>
-      <ion-card-title>Эстетика</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      8 марта: конкурная тренировка <br>
-      9 марта: вывод на корде <br>
-      10 марта: отдых
-    </ion-card-content>
-  </ion-card>
+<div class="content">
+  <div class='btn-block'>
+    <ion-button expand="full" (click)="goToVeterenary()">
+      <ion-icon></ion-icon>
+      Ветеренария
+    </ion-button>
+    <ion-button expand="full" (click)="goToProfile()">
+      <ion-icon></ion-icon>
+      Профиль
+    </ion-button>
+  </div>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>КСК "Авалон"</ion-card-subtitle>
-      <ion-card-title>Эстетика</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      8 марта: конкурная тренировка <br>
-      9 марта: вывод на корде <br>
-      10 марта: отдых
-    </ion-card-content>
-  </ion-card> -->
+  <ion-button expand="full" (click)="logout()">
+    <ion-icon></ion-icon>
+    Выход
+  </ion-button>
 
-  <div>
-  <ion-button (click)="goToVeterenary()">
-    <ion-icon></ion-icon>
-     Ветеренария
-  </ion-button>
-</div>
-<div>
-  <ion-button (click)="goToProfile()">
-    <ion-icon></ion-icon>
-     Профиль
-  </ion-button>
 </div>
 
-  <ion-button (click)="logout()">
-    <ion-icon></ion-icon>
-     Выход
-  </ion-button>
 
 </ion-content>

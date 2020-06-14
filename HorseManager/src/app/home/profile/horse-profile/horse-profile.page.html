@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="horse">{{horse.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="horse">
+
+  <div class="profile-content">
+    <div class="horse-info">
+      <ion-item *ngIf="horse.birth">
+        <ion-label>
+          <ion-row class="table-row ion-align-items-center ">
+            <ion-col size="4" class="row-title">год рождения</ion-col>
+            <ion-col class="ion-text-center" size="8">{{horse.birth.year()}}</ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-row class="table-row ion-align-items-center">
+            <ion-col size="4" class="row-title">пол</ion-col>
+      
+            <ion-col *ngIf="horse.gender == 'MARE'" class="ion-text-center" size="8">кобыла</ion-col>
+            <ion-col *ngIf="horse.gender == 'STALLION'" class="ion-text-center" size="8">жеребец</ion-col>
+            <ion-col *ngIf="horse.gender == 'GELDING'" class="ion-text-center" size="8">мерин</ion-col>
+
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>
+          <ion-row class="table-row ion-align-items-center">
+            <ion-col size="4" class="row-title">масть</ion-col>
+            <ion-col class="ion-text-center" size="8">{{horse.color}}</ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="horse.resident == 'true'">
+        <ion-label>
+          <ion-row class="table-row ion-align-items-center">
+            <ion-col size="4" class="row-title">КСК</ion-col>
+            <ion-col class="ion-text-center" size="8">{{horse.clubTitle}}</ion-col>
+          </ion-row>
+        </ion-label>
+      </ion-item>
+
+
+    </div>
+
+    <div class="btn">
+      <ion-button [routerLink]="['/home/profile/edit-horse']" [queryParams]="{horse_id: horse.id}">редактировать
+      </ion-button>
+    </div>
+
+  </div>
+
+  <app-stable-registration [horseId]="horse.id" *ngIf="horse.resident  != 'true'">
+  </app-stable-registration>
+
+
+</ion-content>

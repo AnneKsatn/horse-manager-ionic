@@ -4,34 +4,26 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="horse">
+
+  
 
   <div class="add-horse-content">
 
 
-    <form #form="ngForm" (ngSubmit)=" updateHorse(form)">
+    <form #form="ngForm" (ngSubmit)="save(form)">
       <ion-list>
         <ion-item>
-          <ion-label class="ion-padding-bottom" position="floating">имя <ion-text color="danger">*</ion-text>
+          <ion-label  position="fixed">имя <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input [(ngModel)]="horse_info.name" name="name" required #nameCtrl="ngModel"></ion-input>
+          <ion-input class="name-input" [(ngModel)]="horse.name" name="name" required #nameCtrl="ngModel"></ion-input>
         </ion-item>
-
-        <!-- <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
-          <ion-label> Введите корректный адрес.</ion-label>
-        </ion-item> -->
-
-        <!-- <ion-item>
-          <ion-label class="ion-padding-bottom" position="floating">год рожения <ion-text color="danger">*</ion-text>
-          </ion-label>
-          <ion-input ngModel name="birth" required #birthCtrl="ngModel"></ion-input>
-        </ion-item> -->
 
 
 
         <ion-item>
           <ion-label>год рождения </ion-label>
-          <ion-datetime [(ngModel)]="horse_info.birth" name="birth" placeholder="год" displayFormat="YYYY" min="1981" max="2025">
+          <ion-datetime [(ngModel)]="year" name="birth" placeholder="год" displayFormat="YYYY" min="1981" max="2025">
           </ion-datetime>
         </ion-item>
         <ion-item>
@@ -39,10 +31,10 @@
           <ion-label> пол <ion-text color="danger">*</ion-text>
           </ion-label>
 
-          <ion-select required [(ngModel)]="horse_info.gender" name="sex" placeholder="пол">
-            <ion-select-option value="mare">кобыла</ion-select-option>
-            <ion-select-option value="stallion">жеребец</ion-select-option>
-            <ion-select-option value="gelding">мерин</ion-select-option>
+          <ion-select required [(ngModel)]="horse.gender" name="gender" placeholder="пол">
+            <ion-select-option value="MARE">кобыла</ion-select-option>
+            <ion-select-option value="STALLION">жеребец</ion-select-option>
+            <ion-select-option value="GELDING">мерин</ion-select-option>
           </ion-select>
         </ion-item>
 
@@ -60,7 +52,7 @@
   </div>
 
   
-  <div class="btn-block"  *ngIf="horse_info.isResident == 'true'">
+  <div class="btn-block"  *ngIf="horse.resident == 'true'">
     <ion-button (click)="leaveHorseClub()" fill="clear" expand="block">
       выйти из КСК
     </ion-button>

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {HorseService} from '../../../shared/services/horse.service'
+import { IHorseProfile, IHorse, Horse } from '../../../shared/models/horse.model';
+import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-edit-horse',
@@ -11,61 +15,68 @@ export class EditHorsePage implements OnInit {
 
   constructor(private route: ActivatedRoute, private horseService: HorseService, private router: Router) { }
 
-  public horse_id;
-
-  horse_info = {
-    birth: "",
-    name: "",
-    gender: "",
-    id: "",
-    isResident: "",
-    club_id: "",
-  };
+  public horseId;
+  public horse: IHorseProfile | null = null;
+  public year: number;
 
 
   ngOnInit() {
-    this.horse_id =this.route.snapshot.queryParams['horse_id']
-    console.log(this.horse_id)
+    this.horseId =this.route.snapshot.queryParams['horse_id']
+    console.log(this.horseId)
 
-    this.horseService.getHorseInfo(this.horse_id).subscribe( doc => {
-      console.log(new Date(doc.data().bith_date.seconds))
-      this.horse_info = {
-        birth: doc.data().bith_date.toDate().getFullYear(),
-        name: doc.data().name,
-        gender: doc.data().sex,
-        id: doc.id,
-        isResident: doc.data().isResident,
-        club_id: doc.data().club_id
-      }
+    this.horseService.find(this.horseId).subscribe(response => {
+      this.horse = response.body;
+      this.year = this.horse.birth ? this.horse.birth.year(): undefined;
     })
 
   }
 
-  updateHorse(form){
-    console.log(form.value.birth)
-
-    const name = form.value.name;
-    const birth = form.value.birth;
-    const timest = new Date(birth);
-    const sex = form.value.sex
-
-    let horse = {
-      bith_date: timest,
-      name: name,
-      sex: sex
-    }
-
-    this.horseService.updateHorse(horse, this.horse_id);
-    this.router.navigateByUrl("/home/profile")
-  }
-
   deleteHorse(){
-    this.horseService.delteHorse(this.horse_id,  this.horse_info.club_id);
-    this.router.navigateByUrl("/home/profile")
+    this.subscribeToSaveResponse(this.horseService.delete(this.horseId));
   }
 
   leaveHorseClub(){
-    this.horseService.leaveHorseClub(this.horse_info.id, this.horse_info.club_id)
+    // this.horseService.leaveHorseClub(this.horse.id, this.horse.clubID)
     this.router.navigateByUrl("/home/profile")
+  }
+
+  
+  save(form): void {
+
+    const horse = this.createFromForm(form);
+    if (horse.id !== undefined) {
+      this.subscribeToSaveResponse(this.horseService.update(horse));
+    }
+  }
+
+  private createFromForm(form): IHorse {
+    const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm';
+    return {
+      ...new Horse(),
+      id: this.horse.id,
+      name: form.value.name,
+      gender: form.value.gender,
+      birth: form.value.birth ? moment(form.value.birth, DATE_TIME_FORMAT): undefined,
+      color: this.horse.color,
+      ownerId: this.horse.ownerId
+    };
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IHorse>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      (err) => this.onSaveError(err),
+      () => {
+        this.router.navigateByUrl("/home/profile")
+      }
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    console.log("OK")
+  }
+
+  protected onSaveError(err): void {
+    console.log(err)
   }
 }

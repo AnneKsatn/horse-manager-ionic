@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {
 
-    this.horseSevice.getAll().subscribe((response: HttpResponse<IHorse[]>) => {
+    this.horseSevice.getHorses().subscribe((response: HttpResponse<IHorse[]>) => {
       this.horses = response.body || [] 
     });
 

@@ -1,0 +1,50 @@
+<div class="horse-name-title">
+  <div><ion-title class="horse-name">{{horse.name}} </ion-title></div>
+  <!-- <ion-icon name="pencil-outline"
+
+    [routerLink]="['/home/profile/edit-horse']"
+    [queryParams]="{horse_id: horse.id}"
+
+    ></ion-icon> -->
+</div>
+
+
+<div class="horse-info">
+  <div>
+    <ion-grid>
+      <ion-row class="table-row ion-align-items-center ion-text-center">
+        <ion-col size="4" class="row-title">год рожд.</ion-col>
+        <ion-col size="8">{{horse.birth_year}}</ion-col>
+      </ion-row>
+
+      <ion-row class="table-row ion-align-items-center ion-text-center" *ngIf="horse.isResident == 'true'">
+        <ion-col size="4" class="row-title">КСК</ion-col>
+        <ion-col size="8">{{horse_club}}</ion-col>
+      </ion-row>
+
+    </ion-grid>
+
+    <div class="club-info">
+      <div class="btn" *ngIf="horse.isResident == 'false'">
+        <ion-button class="registr-btn" (click)="presentAlert()">
+          Зарегистрировать в КСК
+        </ion-button>
+      </div>
+    
+      <div *ngIf="horse.isResident == 'request'">
+        <div class="btn-text">
+          Заявка в КСК отправлена
+        </div> 
+        <div class="btn">
+          <ion-button class="registr-btn" (click)="cancelRequest()">отменить заявку</ion-button>
+        </div>
+      </div>
+    
+      <div class="btn" *ngIf="horse.isResident == 'true'">
+    
+      </div>
+    </div>
+    </div>
+    </div>
+
+

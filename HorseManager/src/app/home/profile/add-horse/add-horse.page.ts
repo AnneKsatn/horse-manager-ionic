@@ -47,7 +47,7 @@ export class AddHorsePage implements OnInit {
       birth: form.value.birth!.value ? moment(form.value.birth!.value, this.DATE_TIME_FORMAT) : undefined,
       gender: form.value.sex,
       color: undefined,
-      ownerID: 1
+      ownerId: 1
     };
   }
 

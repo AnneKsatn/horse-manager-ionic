@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { HorseService } from './../../../shared/services/horse.service';
+import { HorseService } from '../../../shared/services/horse.service';
 import { Router } from '@angular/router';
 
 
@@ -38,16 +38,10 @@ export class HorseProfileComponent implements OnInit {
       this.horseService.getHorseClubTitle(this.horse.club_id).subscribe( (data: any) => {
         this.horse_club = data.data().title;
       })
-      // this.horseService.checkResident(this.horse.id).subscribe((data: any) => {
-      //   this.groom = data[0].payload.doc.data().groom;
-      //   let res = this.horseService.getHorseClubTitle(data[0].payload.doc.data().id_club, this.horse.id).subscribe(doc => {
-      //     this.horse_club = doc.data().title;
-      //   });
-      // });
     }
 
     if (this.horse.isResident == "request") {
-      this.horseService.getRequestID(this.horse.id).subscribe(data => {
+      this.horseService.getRequest(this.horse.id).subscribe(data => {
         if (data.length != 0) {
           this.request_id = data[0]['payload'].doc.id;
         }
@@ -99,7 +93,7 @@ export class HorseProfileComponent implements OnInit {
   }
 
   cancelRequest() {
-    this.horseService.deleteRequestInClub(this.horse, this.request_id);
+    this.horseService.deleteRequest(this.horse, this.request_id);
   }
 
   goToCarePage(){

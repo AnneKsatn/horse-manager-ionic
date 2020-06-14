@@ -7,6 +7,8 @@ import { map, tap } from 'rxjs/operators';
 import { Plugins } from '@capacitor/core'
 import { AngularFirestore } from '@angular/fire/firestore';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { SERVER_API_URL } from '../app.constants';
+
 
 export interface AuthResponseData {
   kind: string;
@@ -36,6 +38,8 @@ type JwtToken = {
   providedIn: 'root'
 })
 export class AuthService {
+
+  public resourceUrl =  SERVER_API_URL + 'api/horses';
 
   private _user = new BehaviorSubject<User>(null);
 
@@ -90,7 +94,7 @@ export class AuthService {
   
   login(username: string, password: string, rememberMe = false): Observable<void> {
     return this.http
-      .post<JwtToken>('http://192.168.43.9:8080/' + 'api/authenticate-owner', {username, password, rememberMe})
+      .post<JwtToken>(SERVER_API_URL + 'api/authenticate-owner', {username, password, rememberMe})
       .pipe(map(
         this.setUserData.bind(this)
         ));

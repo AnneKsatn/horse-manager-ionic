@@ -20,6 +20,7 @@ export class ProfilePage implements OnInit {
 
     this.horseSevice.getHorses().subscribe(
       (data: any) => {
+        console.log(data)
         this.horses = data.map(function(item){
 
     // this.authenticate(email, password);

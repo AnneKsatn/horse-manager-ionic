@@ -42,7 +42,7 @@ export class VetService {
               procedure.title = doc.data().title
               procedure.price = doc.data().price
               procedure.club_id = doc.data().club_id
-              procedure.date = doc.data().date
+              procedure.date = doc.data().date.toDate()
             })
           })
 

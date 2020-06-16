@@ -1,7 +1,6 @@
 <div class="vet-card">
   <ion-card>
     <ion-card-header>
-      <ion-card-subtitle>{{procedure.date}}</ion-card-subtitle>
       <ion-card-title>{{procedure.title}}</ion-card-title>
     </ion-card-header>
 
@@ -13,7 +12,7 @@
 
       <ion-item>
         <ion-icon name="calendar-outline" slot="start"></ion-icon>
-        <ion-label> {{procedure.date}} </ion-label>
+        <ion-label> {{procedure.date | date :  "dd.MM.y" }} </ion-label>
       </ion-item>
 
       <ion-item>

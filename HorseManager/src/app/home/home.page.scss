@@ -2,9 +2,75 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: #F8F8F8;
     height: 100%;
 }
 
 .btn-block{
     margin-top: 50%;
+}
+
+.container {
+    margin-top: 100px;
+    height: 400px;
+    background-color: #F8F8F8;
+}
+
+
+.main-menu{
+    margin-top: 45%;
+    background-color: #FCFCFC;
+    width: 100%;
+    padding: 15px 0px 25px 0px;
+    margin-bottom: 30px;
+}
+
+.inox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 150px;
+}
+
+.menu-icon{
+    width: 70%;
+    height:  80%;
+    padding-bottom: 8px;
+    color: white;
+}
+
+
+ion-col{
+--ion-grid-column-padding: 10px;
+}
+
+.c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:  #002541;
+    width: 55%;
+    height: 80%;
+
+    border-radius: 100px; /* Радиус скругления */
+    border: 3px solid #002541; /* Параметры рамки */
+    box-shadow: 0 0 6px #909497; /* Параметры тени #666 */ 
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.text{
+    color: #262626;
+    font-style: normal;
+    // font-weight: bold;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.registr-btn{
+    --background: #002541;
 }

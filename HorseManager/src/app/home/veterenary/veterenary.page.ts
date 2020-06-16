@@ -16,7 +16,7 @@ export class VeterenaryPage implements OnInit {
   vets: VetProcedure[];
 
   ngOnInit() {
-    this.horseService.getHorseIds().subscribe( data => {
+    this.horseService.getHorses().subscribe( data => {
       this.vetService.get(data).subscribe( data_vet => {
         this.vets = data_vet;
       })

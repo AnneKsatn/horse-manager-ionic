@@ -11,14 +11,19 @@ const routes: Routes = [
   {
     path: 'care',
     loadChildren: () => import('./care-page/care-page.module').then( m => m.CarePagePageModule)
-  },  {
+  },
+  {
     path: 'add-horse',
     loadChildren: () => import('./add-horse/add-horse.module').then( m => m.AddHorsePageModule)
   },
   {
     path: 'edit-horse',
     loadChildren: () => import('./edit-horse/edit-horse.module').then( m => m.EditHorsePageModule)
-  }
+  },  {
+    path: 'horse-profile',
+    loadChildren: () => import('./horse-profile/horse-profile.module').then( m => m.HorseProfilePageModule)
+  },
+
 
 ];
 

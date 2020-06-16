@@ -8,7 +8,7 @@
         <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">Email <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input type="email" ngModel name="email" required email #emailCtrl="ngModel"></ion-input>
+          <ion-input  ngModel name="email" required #emailCtrl="ngModel"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
@@ -18,7 +18,7 @@
         <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">Password <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input type="password" ngModel name="password" required minlength="6" #passCtrl="ngModel"></ion-input>
+          <ion-input type="password" ngModel name="password" required  #passCtrl="ngModel"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!passCtrl.valid && passCtrl.touched" lines="none">
@@ -31,10 +31,12 @@
         <ion-button fill="clear" expand="block" (click)="onSwitchAuthModule()">
           {{isLogin ? 'завести аккаунт' : 'войти'}}
         </ion-button>
-        <ion-button type="submit" (click)="onLogin()" expand="block" [disabled]="!form.valid">
+        <ion-button type="submit" (click)="onLogin()" expand="block" >
           {{isLogin ? 'войти' : 'зарегистрироваться'}}</ion-button>
       </div>
 
     </form>
   </div>
 </ion-content>
+
+<!-- [disabled]="!form.valid" email  type="email" minlength="6"-->

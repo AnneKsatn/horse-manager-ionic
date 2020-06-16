@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
-import { BehaviorSubject, from, identity } from 'rxjs';
+import { BehaviorSubject, from, identity, Observable } from 'rxjs';
 import { User } from './user.model';
 import { map, tap } from 'rxjs/operators';
 import { Plugins } from '@capacitor/core'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
+import { SERVER_API_URL } from '../app.constants';
+
 
 export interface AuthResponseData {
   kind: string;
@@ -18,14 +21,30 @@ export interface AuthResponseData {
 }
 
 
+export class Login {
+  constructor(
+    public username: string, 
+    public password: string, 
+    public rememberMe: boolean, 
+    ) {}
+}
+
+type JwtToken = {
+  id_token: string;
+  id_user: string
+};
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
+  public resourceUrl =  SERVER_API_URL + 'api/horses';
+
   private _user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient, private firestore: AngularFirestore) { }
+  constructor(private http: HttpClient, private firestore: AngularFirestore, private $localStorage: LocalStorageService, 
+    private $sessionStorage: SessionStorageService) { }
 
   // Достает из хранилища данные и проверяет токен
   autoLogin() {
@@ -36,20 +55,20 @@ export class AuthService {
               }
               const parsedData = JSON.parse(storedData.value) as {
                 token: string; 
-                tokenExpirationDate: string;
+                // tokenExpirationDate: string;
                 userId: string,
-                email: string
+                // email: string
               };
-              const expirationTime = new Date(parsedData.tokenExpirationDate);
-              if(expirationTime <= new Date()) {
-                return null;
-              }
+              // const expirationTime = new Date(parsedData.tokenExpirationDate);
+              // if(expirationTime <= new Date()) {
+              //   return null;
+              // }
 
               const user = new User(
                 parsedData.userId,
-                parsedData.email,
+                // parsedData.email,
                 parsedData.token,
-                expirationTime
+                // expirationTime
               );
               return user;
             }), 
@@ -72,13 +91,23 @@ export class AuthService {
   }
 
 
-  login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
-      environment.firebase.apiKey
-    }`, {email: email, password: password, returnSecureToken: true})
-    .pipe(tap(
-      this.setUserData.bind(this)))
+  
+  login(username: string, password: string, rememberMe = false): Observable<void> {
+    return this.http
+      .post<JwtToken>(SERVER_API_URL + 'api/authenticate-owner', {username, password, rememberMe})
+      .pipe(map(
+        this.setUserData.bind(this)
+        ));
+
   }
+
+  // login(email: string, password: string) {
+  //   return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+  //     environment.firebase.apiKey
+  //   }`, {email: email, password: password, returnSecureToken: true})
+  //   .pipe(tap(
+  //     this.setUserData.bind(this)))
+  // }
 
   logout(){
     this._user.next(null);
@@ -109,34 +138,44 @@ export class AuthService {
         ));
   }
 
-  private setUserData(userData: AuthResponseData) {
+  private setUserData(userData: JwtToken) {
 
-    const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000));
+    let rememberMe = false;
+    const jwt = userData.id_token;
+    if (rememberMe) {
+      this.$localStorage.store('authenticationToken', jwt);
+    } else {
+      this.$sessionStorage.store('authenticationToken', jwt);
+    }
+
+
+    // const expirationTime = new Date(new Date().getTime() + (+userData.expiresIn * 1000));
     this._user.next(new User(
-      userData.localId,
-      userData.email,
-      userData.idToken,
-      expirationTime
+      userData.id_user,
+      // userData.email,
+      userData.id_token,
+      // expirationTime
     ));
 
     this.storeAuthData(
-      userData.localId,
-      userData.idToken,
-      expirationTime.toISOString(),
-      userData.email)
+      userData.id_user,
+      userData.id_token,
+      // expirationTime.toISOString(),
+      // userData.email
+      )
   }
 
   private storeAuthData(
     userId: string,
     token: string,
-    tokenExpirationDate: string,
-    email: string
+    // tokenExpirationDate: string,
+    // email: string
   ) {
     const data = JSON.stringify({
       userId: userId,
       token: token,
-      tokenExpirationDate: tokenExpirationDate,
-      email: email
+      // tokenExpirationDate: tokenExpirationDate,
+      // email: email
     })
     Plugins.Storage.set({ key: 'authData', value: data })
   }

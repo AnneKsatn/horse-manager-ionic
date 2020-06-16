@@ -36,6 +36,10 @@ export class HomePage implements OnInit, OnDestroy {
   goToVeterenary(){
     this.router.navigateByUrl("/home/vet");
   }
+  
+  goToManege(){
+    this.router.navigateByUrl("/home/manege");
+  }
 
   logout(){
     this.authService.logout();

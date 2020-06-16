@@ -1,43 +1,95 @@
 <ion-content>
-  <div class="content">
-    <div class="main-menu">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <div class="inox" (click)="goToProfile()">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>КСК "Авалон"</ion-card-subtitle>
+      <ion-card-title>Эстетика</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      8 марта: конкурная тренировка <br>
+      9 марта: вывод на корде <br>
+      10 марта: отдых
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle>КСК "Авалон"</ion-card-subtitle>
+      <ion-card-title>Эстетика</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      8 марта: конкурная тренировка <br>
+      9 марта: вывод на корде <br>
+      10 марта: отдых
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Colors -->
+
+  <!-- <ion-button color="secondary">Secondary</ion-button>
+<ion-button color="success">Success</ion-button> -->
+
+  <div class="main-menu">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <div class="inox" (click)="goToProfile()">
+
+            <div class="c">
+              <ion-icon class="menu-icon" src="../assets/horse.svg"></ion-icon>
+            </div>
+     
+            <div class="text">профиль</div>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <div class="inox" (click)="goToManege()">
 
               <div class="c">
-                <ion-icon class="menu-icon" src="../assets/horse.svg"></ion-icon>
+                <ion-icon class="menu-icon" name="home-outline"></ion-icon>
               </div>
 
-              <div class="text">профиль</div>
+              <div class="text">кск</div>
             </div>
-          </ion-col>
-          <ion-col>
-            <div>
-              <div class="inox" (click)="goToVeterenary()">
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <div class="inox" (click)="goToVeterenary()">
 
-                <div class="c">
-                  <ion-icon class="menu-icon" name="medkit-outline"></ion-icon>
-                </div>
+            <div class="c">
+              <ion-icon class="menu-icon" name="medkit-outline"></ion-icon>
+            </div>
 
-                <div class="text">ветеринария</div>
+            <div class="text">ветеринария</div>
 
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <div class="inox">
+
+              <div class="c">
+                <ion-icon class="menu-icon" name="cash-outline"></ion-icon>
               </div>
+
+              <div class="text">финансы</div>
+
             </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
-
-
-
-    <ion-button expand="full" class="registr-btn" (click)="logout()">
-      Выход
-    </ion-button>
-
-
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
+
+
+  <ion-button color="success" (click)="logout()">
+    Выход
+  </ion-button>
+
 
 </ion-content>

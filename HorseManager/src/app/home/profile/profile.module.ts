@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { HorseProfileComponent } from './horse-profile/horse-profile.component';
+import { HorseProfileComponent } from './horprofile/horse-profile.component';
 
 @NgModule({
   imports: [

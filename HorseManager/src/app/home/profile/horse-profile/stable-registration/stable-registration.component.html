@@ -1,0 +1,13 @@
+<div class="club-info">
+  
+  <ion-button *ngIf="requestExistence == false" color="success" (click)="presentAlert()">
+    Зарегистрировать в КСК
+  </ion-button>
+
+  <div *ngIf="requestExistence == true">
+    <div class="btn-text">
+      Заявка в КСК отправлена
+    </div>
+    <ion-button (click)="cancelRequest()">отменить заявку</ion-button>
+  </div>
+</div>

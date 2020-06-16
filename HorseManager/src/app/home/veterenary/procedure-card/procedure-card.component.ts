@@ -13,8 +13,6 @@ export class ProcedureCardComponent implements OnInit {
   constructor(private horseService: HorseService) { }
 
   ngOnInit() {
-    console.log(this.procedure['club_id'])
-    console.log(this.procedure.club_id)
     // this.horseService.getHorseClubTitle(this.procedure.club_id).subscribe( data => {
     //   this.procedure.club_title = data.data().title;
     //  })

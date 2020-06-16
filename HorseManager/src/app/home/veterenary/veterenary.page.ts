@@ -16,10 +16,19 @@ export class VeterenaryPage implements OnInit {
   vets: VetProcedure[];
 
   ngOnInit() {
-    this.horseService.getHorses().subscribe( data => {
-      this.vetService.getProcedures().subscribe(data_vet => {
-        console.log(data_vet.body)
-        this.vets = data_vet.body;
+    this.vetService.getProcedures().subscribe((data: any) => {
+      console.log(Object.keys(data))
+
+      var result = Object.keys(data).map(function (key) {
+        return data[key];
+      });
+
+      this.vets = result
+
+      this.vets.forEach( item => {
+        this.horseService.getHorseName(item.horse_id).subscribe( data => {
+          item.horse_name = data.data().name
+        })
       })
     })
   }

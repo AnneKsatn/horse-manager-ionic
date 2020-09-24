@@ -10,6 +10,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
+
 @Component({
   selector: 'app-add-horse',
   templateUrl: './add-horse.page.html',

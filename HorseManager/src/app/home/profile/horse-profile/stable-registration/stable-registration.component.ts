@@ -10,17 +10,21 @@ import { AlertController } from '@ionic/angular';
 export class StableRegistrationComponent implements OnInit {
 
 
-  @Input('horseId') horseId: Number;
+  @Input('horseId') horseId: number;
 
   public requestExistence;
   public requestId;
 
   constructor(
     private horseService: HorseService,
-    public alertController: AlertController
+    public alertController: AlertController,
   ) { }
 
   ngOnInit() {
+
+    // this.horseService.is_resident(this.horseId).subscribe(data => {
+    //   console.log(data);
+    // })
     this.horseService.getRequest(this.horseId.toString()).subscribe(data => {
       if (data.length != 0) {
         this.requestExistence = true;

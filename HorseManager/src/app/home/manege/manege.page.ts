@@ -3,6 +3,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { ManegeTimeTableService } from 'src/app/shared/services/manege-time-table-service.service';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,58 +14,25 @@ import { ManegeTimeTableService } from 'src/app/shared/services/manege-time-tabl
 })
 export class ManegePage implements OnInit {
 
-  data = [
-    {
-      "id": 1,
-      "title": "Конкурный день",
-      "start": "2020-05-27"
-    },
-    {
-      "id": 2,
-      "title": "Корда х 1. Манеж \n Корда х 1. Бочка",
-      "start": "2020-05-27T13:30:00",
-      "end": "2020-05-27T14:30:00"
-    },
-    {
-      "id": 4,
-      "title": "Тренировка Х 2. Манеж открытый конкурный. \n Тренировка Х 1. Манеж крытый",
-      "start": "2020-05-27T13:15:00"
-    },
-    {
-      "id": 4,
-      "title": "Старт смены х 5. Крытый манеж",
-      "start": "2020-05-27T13:00:00",
-      "end": "2020-05-27T13:10:00"
-    },
-    {
-      "id": 3,
-      "title": "Тренировка Х 1 \n Старт смены х 5. Крытый манеж",
-      "start": "2020-05-27T13:45:00"
-    },
-    {
-      "id": 3,
-      "title": "Тренировка Х 1",
-      "start": "2020-05-27T14:00:00"
-    },
-    {
-      "id": 3,
-      "title": "Тренировка Х 1",
-      "start": "2020-05-27T14:15:00"
-    },
-  ]
-
-
-
   timetable: any;
   options: any;
+
+  userEvents = [];
           
-  constructor(private manegeTimeTableService: ManegeTimeTableService) { 
-    console.log("Loading")
-    this.manegeTimeTableService.getTimeTable("TACVHkze6Kc2J15sBykZ2BWReOP2");
+  constructor(public alertController: AlertController, private router: Router, private manegeTimeTableSerice: ManegeTimeTableService) {}
+
+
+  async addEvent() {
+    this.router.navigateByUrl("/home/manege/create-event");
   }
 
 
   async ngOnInit() {
+
+    this.manegeTimeTableSerice.getEventsByUser("3").subscribe( data => {
+      this.userEvents = data;
+      console.log(this.userEvents)
+    })
       
       this.options = {
           defaultView: 'timeGrid', 
@@ -84,12 +53,11 @@ export class ManegePage implements OnInit {
             console.log(info.event.title);
         }
       }
-
-      // this.timetable =  await this.manegeTimeTableService.timetable;
-
-      this.timetable = await this.manegeTimeTableService.timetable;
-      console.log(this.timetable )
       
   }
 
+  delete(id: string){
+    console.log(id)
+    this.manegeTimeTableSerice.delete(id);
+  }
 }

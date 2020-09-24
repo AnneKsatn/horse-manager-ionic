@@ -4,6 +4,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { ManegeTimeTableService } from 'src/app/shared/services/manege-time-table-service.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import * as moment from 'moment/moment';
 
 
 @Component({
@@ -13,42 +14,39 @@ import { connectableObservableDescriptor } from 'rxjs/internal/observable/Connec
 })
 export class TimeTableComponent implements OnInit {
 
-  @Input('events') events: any;
+  data = [];
 
-  timetable: any;
+  events: any;
   options: any;
           
   constructor(private manegeTimeTableService: ManegeTimeTableService) { }
 
 
   async ngOnInit() {
+
+    var today = moment().day();
+
       this.options = {
-          defaultView: 'timeGrid', 
-          duration: { days: 1 },
-          plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        defaultView: 'dayGridDay',
+        duration: { days: 1 },
+        plugins: [dayGridPlugin, interactionPlugin],
 
           header: {
               left: '',
               center: 'title',
               right: 'prev,next'
           },
+          firstDay: today,
           height: "parent",
-          slotDuration: '00:05:00',
-          minTime: "8:00:00",
-          maxTime: "22:00:00",
           locale: 'ru',
           eventClick: (info) =>  {
             console.log(info.event.title);
         }
       }
 
-      this.timetable =  await this.manegeTimeTableService.timetable;
-
-      // this.manegeTimeTableService.getTimeTable("TACVHkze6Kc2J15sBykZ2BWReOP2").subscribe(data => {
-      //   console.log("here")
-      //   console.log(data);
-      // });
-      
+      this.manegeTimeTableService.getTimeTable("3").subscribe(data => {
+        this.data = data;
+      })
   }
 
 }

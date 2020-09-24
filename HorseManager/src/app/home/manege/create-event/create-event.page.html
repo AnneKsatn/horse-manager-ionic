@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>create-event</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="add-horse-content">
+
+
+    <form #form="ngForm" (ngSubmit)="addHorse(form)">
+      <ion-list>
+   
+        <ion-item>
+          <ion-label>дата </ion-label>
+          <ion-datetime ngModel name="date" placeholder="дата" displayFormat="MMMM DD" min="2020" max="2020"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>начало</ion-label>
+          <ion-datetime ngModel name="start" placeholder="время" displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+  
+        <ion-item>
+          <ion-label>конец</ion-label>
+          <ion-datetime ngModel name="end"  placeholder="время" displayFormat="HH:mm"></ion-datetime>
+        </ion-item>
+        
+        
+        <ion-item>
+
+          <ion-label > тринировка  <ion-text color="danger">*</ion-text> </ion-label>
+
+          <ion-select ngModel name="type" placeholder="тип">
+            <ion-select-option value="USUAL">верховая</ion-select-option>
+            <ion-select-option value="JUMP">конкурная</ion-select-option>
+            <ion-select-option value="SPRINT">шпринт</ion-select-option>
+            <ion-select-option value="CORD">корда</ion-select-option>
+            <ion-select-option value="FREE">работа на свободе</ion-select-option>
+            <ion-select-option value="OUTSIDE">лес</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+      
+
+      </ion-list>
+
+      <div class="btn-block">
+        <ion-button type="submit" fill="clear" expand="block">
+          сохранить
+        </ion-button>
+      </div>
+
+    </form>
+  </div>
+  
+  <!-- <ion-item>
+    <ion-label>Leap years, summer months</ion-label>
+    <ion-datetime displayFormat="MM/YYYY" pickerFormat="MMMM YYYY" monthValues="6,7,8" [yearValues]="customYearValues"></ion-datetime>
+  </ion-item>
+  
+  <ion-item>
+    <ion-label>Specific days/months/years</ion-label>
+    <ion-datetime monthValues="6,7,8" yearValues="2014,2015" dayValues="01,02,03,04,05,06,08,09,10, 11, 12, 13, 14" displayFormat="DD/MMM/YYYY"></ion-datetime>
+  </ion-item> -->
+</ion-content>

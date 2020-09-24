@@ -1,56 +1,147 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { map, mergeMap, switchAll, switchMap } from 'rxjs/operators';
+import { map, mergeMap, switchAll, switchMap, take } from 'rxjs/operators';
 import { from, forkJoin, pipe } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManegeTimeTableService {
 
-  constructor(private firestore: AngularFirestore) { }
+  private user_id;
+
+  constructor(private firestore: AngularFirestore, private authService: AuthService) {
+    this.authService.userId.pipe(take(1)).subscribe((userId: string) => {
+      this.user_id = userId;
+    })
+  }
 
   public timetable: any;
 
   getTimeTable(club_id: string) {
 
-    return this.firestore.collection("events").snapshotChanges().subscribe((doc: any) => {
-      console.log("Load Time Table")
-      this.timetable = doc.map(function (item) {
-        return {
-          "start": item.payload.doc.id,
-          "title": ""
-        }
-      })
+    return from(this.firestore.collection("events/" + club_id + "/events").snapshotChanges())
+      .pipe(map(doc => {
 
-      this.timetable.forEach(element => {
-        this.getAmount(element.start).subscribe(data => {
-          data.forEach((el: any) => {
-            element.title = element.title + "Корда Х " + el.payload.doc.data().amount + ". " + el.payload.doc.data().place + "\n";
-          });
+        let timetable = doc.map(function (item: any) {
+
+          let type = item.payload.doc.data().title;
+          let title = item.payload.doc.data().title
+
+          switch (type) {
+            case "USUAL": {
+              title = "Верховая тернировка"
+              break;
+            }
+            case "JUMP": {
+              title = "Конкурная тренировка"
+              break;
+            }
+            case "SPRINT": {
+              title = "Шпринт"
+              break;
+            }
+            case "CORD": {
+              title = "Тренировка на корде"
+              break;
+            }
+            case "FREE": {
+              title = "Тренировка на свободе"
+              break;
+            }
+            case "OUTSIDE": {
+              title = "Прогулка"
+              break;
+            }
+            case "LESSON": {
+              title = "Смена х " + item.payload.doc.data().amount
+              break;
+            }
+          }
+
+          return {
+            "id": item.payload.doc.id,
+            "title": title,
+            "start": item.payload.doc.data().start,
+            "end": item.payload.doc.data().end,
+            "color": item.payload.doc.data().color,
+            "textColor": item.payload.doc.data().textColor
+          }
         })
-      });
-
-      this.timetable.forEach(element => {
-
-        this.getRidingAmount(element.start).subscribe(data => {
-          data.forEach((el: any) => {
-            element.title = element.title + "Тренировка Х " + el.payload.doc.data().amount + ". " + el.payload.doc.data().place + "\n";
-          });
-        })
-      });
-    });;
+        return timetable
+      }));
   }
 
-  getAmount(time_id: string) {
-    let ref = "events/" + time_id + "/lunge"
-    console.log(ref)
-    return this.firestore.collection(ref).snapshotChanges();
+  getEventsByUser(club_id: string){
+    
+    return from(this.firestore.collection("events/" + club_id + "/events", ref => ref.where('user_id', '==', parseInt(this.user_id))).snapshotChanges())
+      .pipe(map(doc => {
+
+        let timetable = doc.map(function (item: any) {
+
+          let type = item.payload.doc.data().title;
+          let title = item.payload.doc.data().title
+
+          switch (type) {
+            case "USUAL": {
+              title = "Верховая тернировка"
+              break;
+            }
+            case "JUMP": {
+              title = "Конкурная тренировка"
+              break;
+            }
+            case "SPRINT": {
+              title = "Шпринт"
+              break;
+            }
+            case "CORD": {
+              title = "Тренировка на корде"
+              break;
+            }
+            case "FREE": {
+              title = "Тренировка на свободе"
+              break;
+            }
+            case "OUTSIDE": {
+              title = "Прогулка"
+              break;
+            }
+            case "LESSON": {
+              title = "Смена х " + item.payload.doc.data().amount
+              break;
+            }
+          }
+
+          return {
+            "id": item.payload.doc.id,
+            "title": title,
+            "start_hour": new Date(item.payload.doc.data().start).getHours(),
+            "start_min": new Date(item.payload.doc.data().start).getMinutes(),
+            "end_hour": new Date(item.payload.doc.data().end).getHours(),
+            "end_min": new Date(item.payload.doc.data().end).getMinutes(),
+            "date": new Date(item.payload.doc.data().end).getDate(),
+            "month": new Date(item.payload.doc.data().end).getMonth(),
+            "color": item.payload.doc.data().color,
+            "textColor": item.payload.doc.data().textColor
+          }
+        })
+        return timetable
+      }));
   }
 
-  getRidingAmount(time_id: string) {
-    let ref = "events/" + time_id + "/riding"
-    console.log(ref)
-    return this.firestore.collection(ref).snapshotChanges();
+  postEvent(event: any){
+    console.log(event)
+    event.user_id = this.user_id;
+    let request = "events/" + "3" + "/events";
+    this.firestore.collection(request).add(event);
+  }
+
+  delete(id: string){
+    console.log(id);
+    let request = "events/" + "3" + "/events";
+    this.firestore.collection(request).doc(id).delete()
   }
 }

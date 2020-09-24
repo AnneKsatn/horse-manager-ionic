@@ -52,6 +52,14 @@ export class HorseService {
         return this.firestore.collection('horse_clubs').doc(id_club).get();
     }
 
+    is_resident(horseId: number) {
+        
+        console.log(horseId);
+
+        return this.http
+        .get<Boolean>(SERVER_API_URL + 'api/is_residents' + `?horseId=${horseId}`, { observe: 'response' });
+    }
+
     
     find(id: number): Observable<HttpResponse<IHorseProfile>> {
     return this.http

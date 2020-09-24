@@ -2,12 +2,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { HorseService } from './horse.service';
+import { SERVER_API_URL } from 'src/app/app.constants';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({ providedIn: 'root' })
 export class CareService {
 
-    constructor(private firestore: AngularFirestore, private horseService: HorseService) { }
+    constructor(
+        private firestore: AngularFirestore, 
+        private horseService: HorseService,
+        private http: HttpClient
+        ) { }
+
+    public resourceUrl =  SERVER_API_URL + 'api/is_residents';
+
+    is_resident(horseId: number) {
+        return this.http
+        .get<Boolean>(this.resourceUrl + `?horseId=${horseId}`, { observe: 'response' });
+    }
 
 
     postFeedingConsist(feeding_id: string, horse_id: string, item: string, amount: string, club_id: string) {

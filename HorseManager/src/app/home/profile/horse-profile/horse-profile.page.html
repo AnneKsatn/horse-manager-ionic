@@ -21,7 +21,7 @@
         <ion-label>
           <ion-row class="table-row ion-align-items-center">
             <ion-col size="4" class="row-title">пол</ion-col>
-      
+
             <ion-col *ngIf="horse.gender == 'MARE'" class="ion-text-center" size="8">кобыла</ion-col>
             <ion-col *ngIf="horse.gender == 'STALLION'" class="ion-text-center" size="8">жеребец</ion-col>
             <ion-col *ngIf="horse.gender == 'GELDING'" class="ion-text-center" size="8">мерин</ion-col>
@@ -58,7 +58,8 @@
 
   </div>
 
-  <app-stable-registration [horseId]="horse.id" *ngIf="horse.resident  != 'true'">
+  <app-stable-registration [horseId]="horse.id" *ngIf="is_res == false">
+    ;;
   </app-stable-registration>
 
 

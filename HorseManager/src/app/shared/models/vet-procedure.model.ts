@@ -1,15 +1,30 @@
 export class VetProcedure {
     constructor(
-        public date: number,
+        public date: Date,
         public title: string,
         public status: string,
         public price: string,
         public vet: string,
-        public vet_id: string,
-        public club_id: string,
-        public club_title: string,
+        public vetId: string,
+        public clubId: string,
+        public clubTitle: string,
         public horse_id: string,
         public id: string,
-        public horse_name: string
+        public horseName: string
     ) {}
 }
+
+
+export interface IVetProcedure {
+    date: Date,
+    title: string,
+    status: string,
+    price: string,
+    vet: string,
+    vetId: string,
+    clubId: string,
+    clubTitle: string,
+    horse_id: string,
+    id: string,
+    horseName: string
+  }

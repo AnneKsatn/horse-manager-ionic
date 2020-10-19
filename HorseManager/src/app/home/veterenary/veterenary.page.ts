@@ -20,7 +20,13 @@ export class VeterenaryPage implements OnInit {
   ngOnInit() {
 
     this.vetService.getVetProceduresByUserId().subscribe(data => {
-      this.vets = data.body || []
+      this.vets = data.body || [];
+
+      this.vets.forEach(el => {
+        el.type  = "club";
+      })
+
+      this.vets.sort((prev, next) => prev.date.getTime() - next.date.getTime());
     })
   }
 }

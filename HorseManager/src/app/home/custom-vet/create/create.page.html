@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>add-horse</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+  <div class="add-horse-content">
+
+
+    <form #form="ngForm" (ngSubmit)="addHorse(form)">
+      <ion-list>
+
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">процедура <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input ngModel name="title" required #nameCtrl="ngModel"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">имя <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input ngModel name="horse" required #nameCtrl="ngModel"></ion-input>
+        </ion-item>
+
+        <!-- <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+          <ion-label> Введите корректный адрес.</ion-label>
+        </ion-item> -->
+
+        <!-- <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">год рожения <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input ngModel name="birth" required #birthCtrl="ngModel"></ion-input>
+        </ion-item> -->
+
+
+                
+        <ion-item>
+          <ion-label>дата </ion-label>
+          <ion-datetime ngModel name="birth" placeholder="год"  displayFormat="MM DD YY" min="1981" max="2025"></ion-datetime>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">цена <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input ngModel name="price" required #nameCtrl="ngModel"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label class="ion-padding-bottom" position="floating">врач <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input ngModel name="doctor" required #nameCtrl="ngModel"></ion-input>
+        </ion-item>
+      
+
+      </ion-list>
+
+      <div class="btn-block">
+        <ion-button type="submit" fill="clear" expand="block">
+          сохранить
+        </ion-button>
+      </div>
+
+    </form>
+  </div>
+</ion-content>

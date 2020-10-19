@@ -19,6 +19,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 import {FullCalendarModule} from 'primeng/fullcalendar';
 import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AuthInterceptor } from './shared/interceptor/auth.interceptor';
     HttpClientModule,
     FullCalendarModule,
     NgxWebstorageModule.forRoot({ prefix: 'jhi', separator: '-' }),
+    BrowserAnimationsModule,
   ],
 providers: [
     StatusBar,

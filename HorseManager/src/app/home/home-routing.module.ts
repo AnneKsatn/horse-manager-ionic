@@ -19,6 +19,10 @@ const routes: Routes = [
   },  {
     path: 'manege',
     loadChildren: () => import('./manege/manege.module').then( m => m.ManegePageModule)
+  },
+  {
+    path: 'custom-vet',
+    loadChildren: () => import('./custom-vet/custom-vet.module').then( m => m.CustomVetPageModule)
   }
 
 

@@ -10,7 +10,8 @@ export class VetProcedure {
         public clubTitle: string,
         public horse_id: string,
         public id: string,
-        public horseName: string
+        public horseName: string,
+        public type: string
     ) {}
 }
 
@@ -26,5 +27,6 @@ export interface IVetProcedure {
     clubTitle: string,
     horse_id: string,
     id: string,
-    horseName: string
+    horseName: string,
+    type: string
   }

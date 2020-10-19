@@ -8,7 +8,7 @@
 
   <div class="vet-content">
     <div *ngFor="let proc of vets">
-      <app-procedure-card сlass="vet-card" [procedure]="proc"></app-procedure-card>
+      <app-procedure-card сlass="vet-card" [procedure]="proc" *ngIf="proc.type == 'club'"></app-procedure-card>
     </div>
   </div>
 </ion-content>

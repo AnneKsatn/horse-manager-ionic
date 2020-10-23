@@ -11,7 +11,7 @@
   <div class="add-horse-content">
 
 
-    <form #form="ngForm" (ngSubmit)="create(form)">
+    <form #form="ngForm" (ngSubmit)="addHorse(form)">
       <ion-list>
 
         <ion-item>
@@ -21,20 +21,11 @@
         </ion-item>
 
 
-          <ion-item>
-            <ion-label>лошадь</ion-label>
-            <ion-select ngModel name="horse" required #nameCtrl="ngModel">
-              <ion-select-option *ngFor="let horse of horses" [value]='horse.id'>{{horse.name}}</ion-select-option>
-            </ion-select>
-          </ion-item>
-
-
-
-        <!-- <ion-item>
+        <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">имя <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-input ngModel name="horse" required #nameCtrl="ngModel"></ion-input>
-        </ion-item> -->
+        </ion-item>
 
         <!-- <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
           <ion-label> Введите корректный адрес.</ion-label>

@@ -5,6 +5,7 @@ import { ICustomVet } from 'src/app/shared/models/custom-vet.model';
 import * as moment from 'moment/moment';
 import { IVetProcedure } from 'src/app/shared/models/vet-procedure.model';
 import { SERVER_API_URL } from 'src/app/app.constants';
+import { Observable } from 'rxjs';
 
 
 
@@ -16,7 +17,7 @@ type EntityResponseType = HttpResponse<IVetProcedure>;
   providedIn: 'root'
 })
 export class CustomVetService {
-  public resourseUrl = SERVER_API_URL + 'api/user-vet-infos';
+  public resourseUrl = SERVER_API_URL + 'api/custom-vets';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,6 +55,18 @@ export class CustomVetService {
     const copy = this.convertDateFromClient(vet);
     return this.httpClient
         .post<ICustomVet>(this.resourseUrl, vet, { observe: 'response' })
+}
+
+get(): Observable<any> {
+  console.log("get")
+
+  return this.httpClient.get(this.resourseUrl)
+}
+
+getById(id: string): Observable<any> {
+  console.log("get")
+
+  return this.httpClient.get(this.resourseUrl + `/` + id);
 }
 
 

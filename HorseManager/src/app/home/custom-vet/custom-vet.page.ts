@@ -4,6 +4,7 @@ import { ICustomVet } from 'src/app/shared/models/custom-vet.model';
 import { IVetProcedure } from 'src/app/shared/models/vet-procedure.model';
 import { HorseService } from 'src/app/shared/services/horse.service';
 import { VetService } from 'src/app/shared/services/vet.service';
+import { CustomVetService } from './custom-vet.service';
 
 @Component({
   selector: 'app-custom-vet',
@@ -13,7 +14,11 @@ import { VetService } from 'src/app/shared/services/vet.service';
 export class CustomVetPage implements OnInit {
 
 
-  constructor(private vetService: VetService, private horseService: HorseService, private router: Router) { }
+  constructor(private vetService: VetService, 
+    private horseService: HorseService, 
+    private router: Router,
+    private customVetService: CustomVetService
+    ) { }
 
   // vets: VetProcedure[];
 
@@ -21,16 +26,8 @@ export class CustomVetPage implements OnInit {
 
   ngOnInit() {
 
-    this.vetService.getVetProceduresByUserId().subscribe(data => {
-
-      this.vets = [];
-      // this.vets = data.body || [];
-
-      // this.vets.forEach(el => {
-      //   el.type  = "club";
-      // })
-
-      this.vets.sort((prev, next) => prev.date.getTime() - next.date.getTime());
+    this.customVetService.get().subscribe(data => {
+      this.vets = data || [];
     })
   }
 

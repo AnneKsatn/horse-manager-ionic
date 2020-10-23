@@ -1,4 +1,6 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { HorseService } from '../../../shared/services/horse.service';
 
 @Component({
@@ -10,12 +12,7 @@ export class CustomProcedureCardComponent implements OnInit {
 
   @Input('procedure') procedure: any;
 
-  constructor(private horseService: HorseService) { }
+  constructor(private horseService: HorseService, private router: Router) { }
 
-  ngOnInit() {
-    // this.horseService.getHorseClubTitle(this.procedure.club_id).subscribe( data => {
-    //   this.procedure.club_title = data.data().title;
-    //  })
-  }
-
+  ngOnInit() {}
 }

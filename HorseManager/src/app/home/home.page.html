@@ -1,4 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-button (click)="goToAccount()">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>NevaStable</ion-title>
+
+    
+    <ion-buttons slot="secondary">
+      <ion-button (click)="logout()">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
+  <!-- <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">My Navigation Bar</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
 
   <ion-card>
     <ion-card-header>
@@ -41,7 +67,7 @@
               <ion-icon class="menu-icon" src="../assets/horse.svg"></ion-icon>
             </div>
      
-            <div class="text">профиль</div>
+            <div class="text">лошади</div>
           </div>
         </ion-col>
         <ion-col>
@@ -69,22 +95,7 @@
 
           </div>
         </ion-col>
-        <ion-col>
-          <div>
-            <div class="inox">
 
-              <div class="c">
-                <ion-icon class="menu-icon" name="cash-outline"></ion-icon>
-              </div>
-
-              <div class="text">финансы</div>
-
-            </div>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
         <ion-col>
           <div class="inox" (click)="goToCusomVeterenary()">
 
@@ -96,27 +107,49 @@
 
           </div>
         </ion-col>
+
+        <!-- <ion-col>
+          <div>
+            <div class="inox">
+
+              <div class="c">
+                <ion-icon class="menu-icon" name="cash-outline"></ion-icon>
+              </div>
+
+              <div class="text">финансы</div>
+
+            </div>
+          </div>
+        </ion-col> -->
+      </ion-row>
+
+      <!-- <ion-row>
+        <ion-col>
+          <div class="inox" (click)="goToCusomVeterenary()">
+
+            <div class="c">
+              <ion-icon class="menu-icon" name="medkit-outline"></ion-icon>
+            </div>
+
+            <div class="text">ветеринария: личное</div> 
+
+          </div>
+        </ion-col>
         <ion-col>
           <div>
             <div class="inox">
 
-              <!-- <div class="c">
+               <div class="c">
                 <ion-icon class="menu-icon" name="cash-outline"></ion-icon>
               </div>
 
-              <div class="text">финансы</div> -->
+              <div class="text">финансы</div> 
 
             </div>
           </div>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
     </ion-grid>
   </div>
-
-
-  <ion-button color="success" (click)="logout()">
-    Выход
-  </ion-button>
-
 
 </ion-content>

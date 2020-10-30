@@ -1,6 +1,8 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CustomVet, ICustomVet } from 'src/app/shared/models/custom-vet.model';
 import { CustomVetService } from '../custom-vet.service';
 
@@ -11,10 +13,13 @@ import { CustomVetService } from '../custom-vet.service';
 })
 export class EditPage implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private customVetService: CustomVetService) { }
+  constructor(private activatedRoute: ActivatedRoute, 
+    private customVetService: CustomVetService,
+    private router: Router
+    ) { }
 
   private id;
-  private survey;
+  public survey;
 
   ngOnInit() {
     this.id = this.activatedRoute.snapshot.queryParams['id'];
@@ -22,27 +27,21 @@ export class EditPage implements OnInit {
 
     this.customVetService.getById(this.id).subscribe(data => {
       this.survey = data || {};
+      console.log(this.survey);
     })
   }
 
   addHorse(form: NgForm){
 
     const vet = this.createFromForm(form);
-    
-    // console.log(form.value.birth)
-    console.log(vet);
-    // console.log(horse)
-    // this.subscribeToSaveResponse(this.customVetService.create(vet));
-    // this.subscribeToSaveResponse(this.horseService.create(horse));
-    form.reset();
-
+    this.subscribeToSaveResponse(this.customVetService.update(vet));
   }
 
 
   private createFromForm(form: NgForm): ICustomVet {
     return {
       ...new CustomVet(),
-      id: undefined,
+      id: this.survey.id,
       date: new Date(form.value.birth),
       title: form.value.title,
       price: parseInt(form.value.price),
@@ -54,17 +53,21 @@ export class EditPage implements OnInit {
   }
 
   
-  // protected subscribeToSaveResponse(result: Observable<HttpResponse<ICustomVet>>): void {
-  //   result.subscribe( 
-  //     (resp) => {
-  //     console.log("OK")
-  //     this.router.navigateByUrl("/home");
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<ICustomVet>>): void {
+    result.subscribe( 
+      (resp) => {
+      console.log("OK")
+      this.router.navigateByUrl("/home/custom-vet");
 
-  //   },
-  //      (err) =>{
-  //       console.log(err)
-  //       this.router.navigateByUrl("/home");
-  //      }
-  //   );
-  // }
+    },
+       (err) =>{
+        console.log(err)
+        this.router.navigateByUrl("/home/custom-vet");
+       }
+    );
+  }
+
+  delete() {
+    this.subscribeToSaveResponse(this.customVetService.delete(this.id));
+  }
 }

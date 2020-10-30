@@ -1,12 +1,15 @@
+
 ion-header {
     z-index: 0;
     text-align: center;
+    border-bottom: 0.5px #FCFCFC solid;
 }
 
 .main{
     background-color: #FCFCFC;
     min-height: 100%;
     min-width: 100%;
+    padding-top: 10%;
 }
 
 .person-profile{

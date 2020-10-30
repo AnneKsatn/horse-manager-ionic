@@ -55,4 +55,8 @@ export class ProfilePage implements OnInit {
    addHorse(){
       this.router.navigateByUrl("/home/profile/add-horse");
    }
+
+   create() {
+     
+   }
 }

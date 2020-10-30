@@ -55,4 +55,8 @@ export class HomePage implements OnInit, OnDestroy {
     }
   }
 
+  goToAccount() {
+    this.router.navigateByUrl("/account");
+  }
+
 }

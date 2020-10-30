@@ -1,30 +1,45 @@
 <ion-header>
+
+  
   <ion-toolbar>
-    <ion-title>add-horse</ion-title>
+    <ion-buttons slot="start">
+      <ion-button>
+        <!-- <ion-icon slot="icon-only" name="star"></ion-icon> -->
+      </ion-button>
+  
+    </ion-buttons>
+    <ion-buttons slot="secondary">
+      <ion-button (click)="delete()">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Информация</ion-title>
   </ion-toolbar>
+
 </ion-header>
+
 
 
 
 <ion-content>
 
-  <div class="add-horse-content">
+  <div class="add-horse-content" *ngIf="survey">
 
 
     <form #form="ngForm" (ngSubmit)="addHorse(form)">
       <ion-list>
 
         <ion-item>
-          <ion-label class="ion-padding-bottom" position="floating">процедура <ion-text color="danger">*</ion-text>
+          <ion-label class="ion-padding-bottom"  position="floating">процедура <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input ngModel name="title" required #nameCtrl="ngModel"></ion-input>
+          <ion-input ngModel name="title"  [(ngModel)]="survey.title" required #nameCtrl="ngModel"></ion-input>
         </ion-item>
 
 
         <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">имя <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input ngModel name="horse" required #nameCtrl="ngModel"></ion-input>
+          <ion-input ngModel name="horse" required #nameCtrl="ngModel" [(ngModel)]="survey.horseId"></ion-input>
         </ion-item>
 
         <!-- <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
@@ -41,19 +56,19 @@
                 
         <ion-item>
           <ion-label>дата </ion-label>
-          <ion-datetime ngModel name="birth" placeholder="год"  displayFormat="MM DD YY" min="1981" max="2025"></ion-datetime>
+          <ion-datetime ngModel name="birth" placeholder="год"  displayFormat="MM DD YY" min="1981" max="2025" [(ngModel)]="survey.date"></ion-datetime>
         </ion-item>
 
         <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">цена <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input ngModel name="price" required #nameCtrl="ngModel"></ion-input>
+          <ion-input ngModel name="price" required #nameCtrl="ngModel" [(ngModel)]="survey.price"></ion-input>
         </ion-item>
 
         <ion-item>
           <ion-label class="ion-padding-bottom" position="floating">врач <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input ngModel name="doctor" required #nameCtrl="ngModel"></ion-input>
+          <ion-input ngModel name="doctor" required #nameCtrl="ngModel" [(ngModel)]="survey.doctor"></ion-input>
         </ion-item>
       
 

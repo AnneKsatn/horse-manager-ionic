@@ -9,15 +9,15 @@ import { Observable } from 'rxjs';
 
 
 
-type EntityArrayResponseType = HttpResponse<IVetProcedure[]>;
-type EntityResponseType = HttpResponse<IVetProcedure>;
+type EntityArrayResponseType = HttpResponse<ICustomVet[]>;
+type EntityResponseType = HttpResponse<ICustomVet>;
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomVetService {
-  public resourseUrl = SERVER_API_URL + 'api/custom-vets';
+  public resourceUrl = SERVER_API_URL + 'api/custom-vets';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,19 +54,31 @@ export class CustomVetService {
     console.log("create")
     const copy = this.convertDateFromClient(vet);
     return this.httpClient
-        .post<ICustomVet>(this.resourseUrl, vet, { observe: 'response' })
+        .post<ICustomVet>(this.resourceUrl, vet, { observe: 'response' })
 }
 
 get(): Observable<any> {
   console.log("get")
 
-  return this.httpClient.get(this.resourseUrl)
+  return this.httpClient.get(this.resourceUrl)
 }
 
 getById(id: string): Observable<any> {
   console.log("get")
 
-  return this.httpClient.get(this.resourseUrl + `/` + id);
+  return this.httpClient.get(this.resourceUrl + `/` + id);
+}
+
+update(vet: ICustomVet): Observable<EntityResponseType> {
+  const copy = this.convertDateFromClient(vet);
+
+  return this.httpClient
+    .put<ICustomVet>(this.resourceUrl, copy, { observe: 'response' })
+    .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+}
+
+delete(id: string) {
+  return this.httpClient.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
 }
 
 
@@ -96,7 +108,7 @@ getById(id: string): Observable<any> {
 
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
-      res.body.forEach((stableVetInfo: IVetProcedure) => {
+      res.body.forEach((stableVetInfo: ICustomVet) => {
         stableVetInfo.date = stableVetInfo.date ? moment(stableVetInfo.date).toDate() : undefined;
       });
     }

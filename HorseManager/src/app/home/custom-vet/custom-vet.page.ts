@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ICustomVet } from 'src/app/shared/models/custom-vet.model';
 import { IVetProcedure } from 'src/app/shared/models/vet-procedure.model';
@@ -24,14 +24,23 @@ export class CustomVetPage implements OnInit {
 
   vets: ICustomVet[];
 
+  // ngDoCheck() {
+
+  //   this.customVetService.get().subscribe(data => {
+  //     this.vets = data || [];
+  //     console.log(this.vets);
+  //   })
+  // }
+
   ngOnInit() {
 
     this.customVetService.get().subscribe(data => {
       this.vets = data || [];
+      console.log(this.vets);
     })
   }
 
   create() {
-    this.router.navigateByUrl("/home/custom-vet/create");
+    this.router.navigateByUrl("/home/create-vet");
   }
 }
